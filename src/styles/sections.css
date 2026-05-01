@@ -1,0 +1,91 @@
+/* ===== Nav ===== */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 4vw;
+  background: rgba(251, 248, 242, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .25s ease;
+}
+
+.nav.is-scrolled {
+  border-bottom-color: var(--ligne);
+}
+
+.nav__monogram {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+  color: var(--bordeaux);
+}
+
+.nav__links {
+  display: flex;
+  gap: 2.4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__links a {
+  font-size: 0.7rem;
+  letter-spacing: var(--track-nav);
+  text-transform: uppercase;
+  color: var(--crayon);
+  transition: color .25s;
+}
+
+.nav__links a:hover { color: var(--bordeaux); }
+
+.nav__date {
+  font-size: 0.7rem;
+  letter-spacing: var(--track-nav);
+  text-transform: uppercase;
+  color: var(--bordeaux);
+}
+
+.nav__burger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0.4rem;
+}
+.nav__burger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--crayon);
+  transition: transform .25s, opacity .25s;
+}
+
+@media (max-width: 768px) {
+  .nav__links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--creme);
+    border-bottom: 1px solid var(--ligne);
+    padding: var(--space-md) 4vw;
+  }
+  .nav__links li { padding: 0.8rem 0; border-bottom: 1px solid var(--ligne); }
+  .nav__links li:last-child { border-bottom: none; }
+
+  .nav.is-open .nav__links { display: flex; }
+  .nav.is-open .nav__burger span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .nav.is-open .nav__burger span:nth-child(2) { opacity: 0; }
+  .nav.is-open .nav__burger span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+  .nav__date { display: none; }
+  .nav__burger { display: flex; }
+}
