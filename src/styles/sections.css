@@ -339,3 +339,47 @@
   font-size: 0.85rem;
   opacity: 0.75;
 }
+
+/* ===== Infos pratiques ===== */
+.map {
+  margin: 0 0 var(--space-lg);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--ligne);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2.5rem;
+}
+
+.info-grid article {
+  text-align: left;
+}
+
+.info-grid h3 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+  color: var(--bordeaux);
+}
+
+.info-grid p, .info-grid li {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  margin-bottom: 0.6rem;
+}
+
+.info-grid ul {
+  padding: 0;
+  list-style: none;
+}
+
+.info-note {
+  font-size: 0.65rem !important;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--dore);
+  opacity: 1 !important;
+}
