@@ -176,7 +176,70 @@
     </section>
 
     <section class="section section--rsvp" id="rsvp">
-      <div class="container container--narrow"><p>(RSVP — à venir)</p></div>
+      <div class="container container--narrow">
+        <p class="eyebrow eyebrow--light" style="display:flex; justify-content:center; margin-bottom: 0.6rem;">Confirmez votre venue</p>
+        <h2 class="section-title section-title--light">RSVP</h2>
+        <p class="lead lead--light">
+          Merci de répondre <strong>avant le 15 octobre 2026</strong>.
+          <!-- TBD T9 : confirmer la date limite -->
+        </p>
+
+        <form class="rsvp-form" id="rsvp-form" novalidate>
+          <div class="field">
+            <label for="rsvp-name">Nom complet</label>
+            <input type="text" id="rsvp-name" name="name" required autocomplete="name" />
+          </div>
+
+          <div class="field">
+            <label for="rsvp-email">Email</label>
+            <input type="email" id="rsvp-email" name="email" required autocomplete="email" />
+          </div>
+
+          <div class="field">
+            <label for="rsvp-phone">Téléphone (optionnel)</label>
+            <input type="tel" id="rsvp-phone" name="phone" autocomplete="tel" />
+          </div>
+
+          <div class="field">
+            <label for="rsvp-attendance">Présence</label>
+            <select id="rsvp-attendance" name="attendance" required>
+              <option value="" disabled selected>Choisissez une réponse</option>
+              <option value="oui">Oui, avec plaisir</option>
+              <option value="non">Non, je ne pourrai pas</option>
+            </select>
+          </div>
+
+          <div class="field" data-show-when="attendance:oui">
+            <label for="rsvp-guests">Nombre d'accompagnant·es (vous compris·e)</label>
+            <input type="number" id="rsvp-guests" name="guests" min="1" max="6" />
+          </div>
+
+          <div class="field" data-show-when="attendance:oui">
+            <label for="rsvp-guest-names">Prénoms des accompagnant·es</label>
+            <input type="text" id="rsvp-guest-names" name="guestNames" placeholder="Marie, Paul…" />
+          </div>
+
+          <div class="field" data-show-when="attendance:oui">
+            <label for="rsvp-diet">Allergies / régimes</label>
+            <textarea id="rsvp-diet" name="diet" rows="2"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="rsvp-message">Un petit mot ?</label>
+            <textarea id="rsvp-message" name="message" rows="3"></textarea>
+          </div>
+
+          <!-- Honeypot anti-bot, caché par CSS -->
+          <div class="honeypot" aria-hidden="true">
+            <label for="rsvp-website">Ne pas remplir</label>
+            <input type="text" id="rsvp-website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <button type="submit" class="btn-primary" id="rsvp-submit">Envoyer ma réponse</button>
+
+          <p class="rsvp-status" id="rsvp-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
     </section>
 
     <section class="section section--liste" id="liste">
