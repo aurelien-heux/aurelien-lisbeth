@@ -490,3 +490,63 @@
 
 .rsvp-status.is-success { color: var(--dore); }
 .rsvp-status.is-error   { color: #f99; }
+
+/* ===== Liste / FAQ ===== */
+.section--liste { padding-bottom: var(--section-py-desktop); }
+
+.faq {
+  display: grid;
+  gap: 0;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--ligne);
+  padding: 1.4rem 0;
+}
+
+.faq__item:first-child { border-top: 1px solid var(--ligne); }
+
+.faq__item > summary {
+  list-style: none;
+  cursor: pointer;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-right: 0.4rem;
+  transition: color .25s;
+}
+
+.faq__item > summary::-webkit-details-marker { display: none; }
+
+.faq__item > summary::after {
+  content: '+';
+  font-family: var(--font-sans);
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--bordeaux);
+  transition: transform .25s;
+}
+
+.faq__item[open] > summary::after {
+  transform: rotate(45deg);
+}
+
+.faq__item[open] > summary {
+  color: var(--bordeaux);
+}
+
+.faq__item p {
+  margin: 0.8rem 0 0;
+  font-size: 0.9rem;
+  color: var(--crayon);
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .faq__item > summary { font-size: 1rem; }
+}
