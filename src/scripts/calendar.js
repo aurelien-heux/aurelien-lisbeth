@@ -67,7 +67,7 @@ if (typeof document !== 'undefined') {
   const WEDDING_EVENT = {
     title: 'Mariage Lisbeth & Aurélien',
     start: new Date('2026-12-05T14:00:00+01:00'), // 14h Paris time
-    end:   new Date('2026-12-05T23:00:00+01:00'), // minuit, fin estimée
+    end:   new Date('2026-12-06T02:00:00+01:00'), // 2h du matin (cohérent avec FAQ)
     location: 'Boulogne-sur-Mer, France',
     description: '14h cérémonie religieuse · 17h vin d\'honneur · 19h dîner de Noël',
     uid: 'wedding-lisbeth-aurelien-20261205@lisbeth-et-aurelien',

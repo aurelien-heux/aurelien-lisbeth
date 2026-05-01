@@ -134,7 +134,7 @@ if (typeof document !== 'undefined') {
         const result = await response.json().catch(() => ({ ok: false, error: 'invalid_response' }));
 
         if (result.ok) {
-          setStatus('Merci, votre réponse a bien été reçue 🤍', 'success');
+          setStatus('Merci, votre réponse a bien été reçue.', 'success');
           form.reset();
           toggleConditionalFields();
         } else if (result.error === 'duplicate_recent') {

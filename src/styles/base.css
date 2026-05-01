@@ -89,6 +89,27 @@ button {
   border: 0;
 }
 
+.sr-only:focus,
+.sr-only:focus-visible {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0.6rem 1rem;
+  margin: 0.5rem;
+  clip: auto;
+  -webkit-clip-path: none;
+  clip-path: none;
+  overflow: visible;
+  white-space: normal;
+  background: var(--creme);
+  color: var(--bordeaux);
+  border: 2px solid var(--bordeaux);
+  z-index: 200;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
 /* Honeypot (caché à l'œil mais pas pour les bots) */
 .honeypot {
   position: absolute;

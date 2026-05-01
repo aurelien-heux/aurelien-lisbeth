@@ -500,6 +500,7 @@
 
 /* ===== Liste / FAQ ===== */
 .section--liste { padding-bottom: var(--section-py-desktop); }
+.section--liste__inner { text-align: center; }
 
 .faq {
   display: grid;
