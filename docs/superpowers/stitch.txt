@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#cba72f",
+                      "on-background": "#1b1c19",
+                      "surface-container-highest": "#e4e2dd",
+                      "background": "#fbf9f4",
+                      "error": "#ba1a1a",
+                      "on-tertiary": "#ffffff",
+                      "on-surface": "#1b1c19",
+                      "soft-charcoal": "#2F2F2F",
+                      "outline-variant": "#c0c9c1",
+                      "error-container": "#ffdad6",
+                      "surface-tint": "#396850",
+                      "primary-fixed": "#bbeecf",
+                      "paper-white": "#F9F7F2",
+                      "surface-container-low": "#f5f3ee",
+                      "on-tertiary-fixed-variant": "#574500",
+                      "primary": "#002616",
+                      "on-primary-fixed": "#002113",
+                      "on-secondary": "#ffffff",
+                      "surface": "#fbf9f4",
+                      "secondary-container": "#fd6673",
+                      "on-secondary-container": "#680018",
+                      "on-tertiary-container": "#4e3d00",
+                      "on-secondary-fixed": "#40000b",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-fixed": "#ffdada",
+                      "on-primary-container": "#78a88d",
+                      "surface-container": "#f0eee9",
+                      "secondary": "#af2b3e",
+                      "inverse-surface": "#30312e",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed-variant": "#204f39",
+                      "surface-container-high": "#eae8e3",
+                      "on-surface-variant": "#414943",
+                      "secondary-fixed-dim": "#ffb3b5",
+                      "surface-bright": "#fbf9f4",
+                      "tertiary": "#735c00",
+                      "on-secondary-fixed-variant": "#8e0f28",
+                      "surface-dim": "#dbdad5",
+                      "on-primary": "#ffffff",
+                      "primary-container": "#0a3d28",
+                      "outline": "#717973",
+                      "inverse-on-surface": "#f2f1ec",
+                      "bordeaux-red": "#800020",
+                      "on-error": "#ffffff",
+                      "pine-green": "#0A3D28",
+                      "on-tertiary-fixed": "#241a00",
+                      "surface-variant": "#e4e2dd",
+                      "tertiary-fixed": "#ffe088",
+                      "inverse-primary": "#a0d2b4",
+                      "tertiary-fixed-dim": "#e9c349",
+                      "gold-leaf": "#D4AF37",
+                      "primary-fixed-dim": "#a0d2b4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "1.5rem",
+                      "xs": "0.5rem",
+                      "lg": "4rem",
+                      "sm": "1rem",
+                      "container-max": "1140px",
+                      "md": "2rem",
+                      "xl": "8rem"
+              },
+              "fontFamily": {
+                      "headline-xl": ["Noto Serif"],
+                      "accent-script": ["Noto Serif"],
+                      "headline-lg": ["Noto Serif"],
+                      "body-md": ["Manrope"],
+                      "headline-md": ["Noto Serif"],
+                      "body-lg": ["Manrope"]
+              },
+              "fontSize": {
+                      "headline-xl": ["3.5rem", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "accent-script": ["1.5rem", {"lineHeight": "1.2", "fontWeight": "400"}],
+                      "headline-lg": ["2.5rem", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "body-md": ["1rem", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-md": ["1.75rem", {"lineHeight": "1.3", "fontWeight": "500"}],
+                      "body-lg": ["1.125rem", {"lineHeight": "1.7", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .serif-italic { font-family: 'Noto Serif', serif; font-style: italic; }
+        .bg-hero-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.1), rgba(0,0,0,0.4)); }
+    </style>
+</head>
+<body class="bg-paper-white text-pine-green font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-[#FDFCFB] border-b border-amber-200/40 transition-colors duration-400">
+<div class="flex justify-between items-center px-12 py-6 w-full max-w-7xl mx-auto">
+<div class="font-serif text-2xl italic text-[#0A3D28]">L'Amour de Noël</div>
+<div class="hidden md:flex items-center gap-10">
+<a class="text-[#800020] border-b border-[#D4AF37] pb-1 font-medium font-serif tracking-tight" href="#">Notre Histoire</a>
+<a class="text-[#0A3D28]/70 hover:text-[#800020] transition-colors duration-400 font-serif tracking-tight" href="#">Programme</a>
+<a class="text-[#0A3D28]/70 hover:text-[#800020] transition-colors duration-400 font-serif tracking-tight" href="#">Le Lieu</a>
+<a class="text-[#0A3D28]/70 hover:text-[#800020] transition-colors duration-400 font-serif tracking-tight" href="#">Liste de Mariage</a>
+</div>
+<button class="bg-bordeaux-red text-paper-white px-6 py-2 rounded-lg font-serif hover:ring-1 hover:ring-gold-leaf transition-all duration-400">Répondre (RSVP)</button>
+</div>
+</nav>
+<main>
+<!-- Section Hero -->
+<section class="relative h-screen w-full flex items-center justify-center text-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A cinematic, wide-angle shot of a romantic couple embracing in a snow-covered pine forest at twilight. Warm glowing lanterns hang from frost-covered branches, creating a magical bokeh effect. The couple is dressed in elegant winter wedding attire, with deep bordeaux red accents. The atmosphere is intimate, quiet, and sophisticated, reflecting a timeless festive luxury aesthetic with soft, high-key lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJM1lsPTjorqYeG3rJQyDRw9Kdgy8cHZVdxQyfD_vH_jRuZgomRwHW1lH94iBlmhz2ZPqu6hj109-ZN0aDkVQCccJoMB77gvuWm54ei6mzlh15D1M8FgIhTpGSQjwrTk_rWhZ2P1rCArbW7XGPdPypy_-QSN-GblWcEQTGFSCMd9pW62vggnoGNEVpC_SAS8ld2zVPPB_nJX58eV8ZdeybxPIniwQiJ79_nLv6bXSiMr_RO0539-7hTG52K7E_DQr7GcpHI3rQuts"/>
+<div class="absolute inset-0 bg-hero-overlay"></div>
+</div>
+<div class="relative z-10 text-white space-y-6 max-w-3xl px-6">
+<p class="font-serif italic text-accent-script text-gold-leaf tracking-widest uppercase">Notre Mariage Hivernal</p>
+<h1 class="font-headline-xl text-headline-xl drop-shadow-lg">L'Amour de Noël</h1>
+<div class="flex items-center justify-center gap-4">
+<div class="h-px w-12 bg-gold-leaf"></div>
+<p class="font-headline-md text-headline-md font-light tracking-[0.2em]">21 DÉCEMBRE 2024</p>
+<div class="h-px w-12 bg-gold-leaf"></div>
+</div>
+<div class="pt-8">
+<span class="material-symbols-outlined text-gold-leaf text-4xl animate-bounce">expand_more</span>
+</div>
+</div>
+</section>
+<!-- Section Notre Histoire -->
+<section class="py-xl bg-paper-white relative">
+<div class="max-w-4xl mx-auto px-6 text-center space-y-12">
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-gold-leaf text-3xl mb-4" data-icon="auto_awesome">auto_awesome</span>
+<h2 class="font-headline-lg text-headline-lg text-pine-green">Notre Histoire</h2>
+<div class="w-16 h-0.5 bg-gold-leaf/30 mt-4"></div>
+</div>
+<div class="grid md:grid-cols-2 gap-12 items-center">
+<div class="relative p-2 border border-gold-leaf/40">
+<div class="border border-gold-leaf/20 p-1">
+<img class="w-full h-auto object-cover grayscale-[0.2]" data-alt="Close up photography of two hands interlocked, wearing elegant gold wedding bands. The background is a soft-focus festive setting with warm fairy lights and pine needles. The lighting is intimate and golden, highlighting the texture of the skin and the sparkle of the jewelry. The aesthetic is clean and minimal, emphasizing tactile elegance and deep romantic connection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFEsRMLa7-X4Zxrqf3nBIUMO6uGuadSshnpX94XY5AKK-RFMvmhDm-DA-yh2uXLAHf2kGR6fO6w2bjiWuGDIdO0STgKyNiw9vMgs78fAuYFxKkUtzfUoLJKH4yU4Y05MxeCah7MalzUiwy2QuI8tikzwjTtZn2nw784F4BOfz64jsh1HgzsVg4bNY1JHasGLYxW6IXnrhNiafFCXkdLlLMrrbdzWNR3G1xFE5Si2g1undaG4FjGBkmFQ550EudbNp_YCYCd1_Xt54"/>
+</div>
+</div>
+<div class="text-left space-y-6">
+<p class="font-body-lg text-body-lg text-soft-charcoal italic serif-italic">
+                            "Comme un flocon de neige qui trouve enfin sa place sur la terre, nos cœurs se sont rencontrés un soir de décembre."
+                        </p>
+<p class="font-body-md text-body-md text-pine-green/80 leading-relaxed">
+                            Tout a commencé sous les lumières scintillantes de la place du marché. Depuis ce jour, chaque Noël a une saveur particulière. Aujourd'hui, nous avons choisi cette saison magique pour lier nos destins à jamais, entourés de la chaleur de nos proches et de la poésie de l'hiver.
+                        </p>
+<div class="pt-4">
+<button class="border border-pine-green text-pine-green px-8 py-3 font-serif hover:bg-pine-green hover:text-white transition-all duration-400">Découvrir l'Album</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section Programme (Timeline Festive) -->
+<section class="py-xl bg-surface-container-low">
+<div class="max-w-5xl mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg text-pine-green mb-4">Le Programme des Festivités</h2>
+<p class="font-serif italic text-gold-leaf">Une journée enchantée au cœur de l'hiver</p>
+</div>
+<div class="relative">
+<!-- Timeline vertical line -->
+<div class="absolute left-1/2 transform -translate-x-1/2 h-full w-px bg-gold-leaf/30 hidden md:block"></div>
+<div class="space-y-24">
+<!-- Cérémonie -->
+<div class="relative flex flex-col md:flex-row items-center justify-between">
+<div class="md:w-5/12 text-center md:text-right space-y-2">
+<p class="font-serif text-gold-leaf text-xl">15:00</p>
+<h3 class="font-headline-md text-headline-md text-bordeaux-red">La Cérémonie</h3>
+<p class="font-body-md text-pine-green/70">Église Saint-Nicolas de la Forêt. Un échange de vœux solennel dans une ambiance aux chandelles.</p>
+</div>
+<div class="z-10 bg-paper-white border border-gold-leaf p-2 rounded-full my-6 md:my-0">
+<span class="material-symbols-outlined text-gold-leaf p-2" data-icon="church">church</span>
+</div>
+<div class="md:w-5/12">
+<img class="w-full h-48 object-cover border border-gold-leaf/20" data-alt="A beautiful church interior decorated for a winter wedding. Large pine wreaths with gold ribbons hang from the stone pillars, and hundreds of small white candles light the central aisle. The atmosphere is quiet, sacred, and incredibly warm, with a soft golden glow illuminating the historical architecture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN700D1cAZ_ClVMvP7duiXiNFvesSeuPSRkPYA7TBgDK7Yj7TS6NzmrGPSXzf3M83OuymYs4P2hf1zyCngCa5Ol6Aq2_HYAkEWVvl3vRrKE_yx7qtlK_jtfUzxJ44bZgI8g2qrBkvVE1aU_pvWmTfJqbDD_9E69-2FCAAseKNk3h0kw1OBe2yTjuR3pwr5I9ueHbM1CAjkIgBMtO8a2jlkOnwFd6USMchxBb_CAoCbX0Hp09leM7T7co8Vox98J0hKHEQhBa6lcY8"/>
+</div>
+</div>
+<!-- Vin d'Honneur -->
+<div class="relative flex flex-col md:flex-row-reverse items-center justify-between">
+<div class="md:w-5/12 text-center md:text-left space-y-2">
+<p class="font-serif text-gold-leaf text-xl">17:30</p>
+<h3 class="font-headline-md text-headline-md text-bordeaux-red">Vin d'Honneur</h3>
+<p class="font-body-md text-pine-green/70">Le Chalet des Alpes. Chocolat chaud artisanal, champagne millésimé et mignardises d'hiver.</p>
+</div>
+<div class="z-10 bg-paper-white border border-gold-leaf p-2 rounded-full my-6 md:my-0">
+<span class="material-symbols-outlined text-gold-leaf p-2" data-icon="celebration">celebration</span>
+</div>
+<div class="md:w-5/12">
+<img class="w-full h-48 object-cover border border-gold-leaf/20" data-alt="A luxurious festive reception table featuring crystal champagne glasses and delicate winter appetizers. Small sprigs of pine and gold-dusted berries are scattered around the table. The lighting is soft and intimate, reflecting off the glassware to create a sparkling, sophisticated atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxCSdJtbegyTlCURl6MJHm6HSRqWQUDvh8C5od8WV7LamUxnlvb_cEKhMuVXgEBlE7H-p0xwD1yQifhhBD6X-A7X9hxaMA0wV_1OLvX-OCwqSeLcDdWEFpd69sh0v1ToFCfssD7BGrMuNyslkVa3JW4PHFp-XQgg9r21fBz_niK1sI3zu8QDZyKe4DDBlla75dYAd6S37Tp_bJ3zSPBclXlt10CSC2ysrzCHQiDOuWOWfTw-G8vee_rGUBMJQ5NrAEx9Xkgklh_fQ"/>
+</div>
+</div>
+<!-- Dîner -->
+<div class="relative flex flex-col md:flex-row items-center justify-between">
+<div class="md:w-5/12 text-center md:text-right space-y-2">
+<p class="font-serif text-gold-leaf text-xl">20:00</p>
+<h3 class="font-headline-md text-headline-md text-bordeaux-red">Dîner de Gala</h3>
+<p class="font-body-md text-pine-green/70">La Grande Salle des Glaces. Un festin gastronomique dans un décor de forêt enchantée.</p>
+</div>
+<div class="z-10 bg-paper-white border border-gold-leaf p-2 rounded-full my-6 md:my-0">
+<span class="material-symbols-outlined text-gold-leaf p-2" data-icon="restaurant">restaurant</span>
+</div>
+<div class="md:w-5/12">
+<img class="w-full h-48 object-cover border border-gold-leaf/20" data-alt="A grand ballroom table setting for a luxury wedding. The table is adorned with a deep green runner, bordeaux red velvet napkins, and gold cutlery. A massive floral centerpiece of white roses and pine branches dominates the center. The room is filled with warm, ambient light from grand chandeliers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXmb0UDn9W5jy0nrOHCVZjrwuDNNP2xTb4C2zcrH8_oT5h7jrs68auiIfO8IgIZB4-Aah86yKzpERKxorzLv0CTAKGZVy27d9bF3ak4lJlZTkVao--_LqZP-V59fPGbbpYfPqHcAPDuHok_vzPKyEujuBT6aNwDkrFRBQR7L_0Ww3RVnNQF33R0WkZtecUVBmLFxm6L5O8KMIfDwoxU4YqZ6Xz6KyrF5L_f5a_nlhQJKktmEiltoYAy7KMy1p6-uiAxK9AstG6jPA"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section RSVP CTA -->
+<section class="py-xl bg-pine-green text-paper-white text-center">
+<div class="max-w-2xl mx-auto px-6 space-y-8">
+<h2 class="font-headline-lg text-headline-lg">Ferez-vous partie du conte ?</h2>
+<p class="font-body-lg text-body-lg opacity-80">Merci de nous confirmer votre présence avant le 1er Novembre 2024.</p>
+<div class="pt-4">
+<button class="bg-bordeaux-red text-paper-white px-12 py-4 rounded-lg font-headline-md hover:ring-2 hover:ring-gold-leaf transition-all duration-400 uppercase tracking-widest">Répondre Maintenant</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#FDFCFB] border-t border-amber-200/40">
+<div class="flex flex-col items-center gap-4 py-12 px-8 w-full">
+<div class="font-serif italic text-lg text-[#0A3D28]">L'Amour de Noël</div>
+<div class="flex gap-8 mt-4">
+<a class="font-serif text-sm tracking-wide text-[#0A3D28]/60 hover:text-[#D4AF37] transition-colors" href="#">Contact</a>
+<a class="font-serif text-sm tracking-wide text-[#0A3D28]/60 hover:text-[#D4AF37] transition-colors" href="#">Mentions Légales</a>
+</div>
+<p class="font-serif text-sm tracking-wide text-[#0A3D28]/60 mt-6">© 2024 Mariage de Noël - Fait avec amour</p>
+</div>
+</footer>
+</body></html>

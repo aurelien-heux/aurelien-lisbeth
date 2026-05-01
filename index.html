@@ -89,34 +89,62 @@
     </header>
 
     <section class="section section--programme" id="programme">
-      <div class="container container--narrow">
+      <div class="container container--medium">
         <p class="eyebrow eyebrow--centered">Programme du jour</p>
         <h2 class="section-title">Le déroulé</h2>
+        <p class="programme__subtitle">Une journée enchantée au cœur de l'hiver</p>
 
-        <ol class="timeline">
-          <li class="timeline__row">
-            <span class="timeline__time">14h</span>
-            <div class="timeline__content">
-              <h3>Cérémonie religieuse</h3>
-              <p>Accueil des invités à partir de 13h30. Prévoir une tenue chaude — l'église n'est pas chauffée.</p>
-              <p class="timeline__place">— Église à confirmer · Boulogne-sur-Mer —</p>
+        <ol class="timeline-festive" aria-label="Programme de la journée">
+          <li class="timeline-festive__row">
+            <div class="timeline-festive__text">
+              <p class="timeline-festive__time">14h</p>
+              <h3 class="timeline-festive__title">Cérémonie religieuse</h3>
+              <p class="timeline-festive__desc">Accueil des invités à partir de 13h30. Prévoir une tenue chaude — l'église n'est pas chauffée.</p>
+              <p class="timeline-festive__place">— Église à confirmer · Boulogne-sur-Mer —</p>
             </div>
+            <span class="timeline-festive__marker" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v4"/>
+                <path d="M10 4h4"/>
+                <path d="M5 22V11l7-5 7 5v11"/>
+                <path d="M10 22v-5a2 2 0 0 1 4 0v5"/>
+              </svg>
+            </span>
+            <div class="timeline-festive__spacer" aria-hidden="true"></div>
           </li>
-          <li class="timeline__row">
-            <span class="timeline__time">17h</span>
-            <div class="timeline__content">
-              <h3>Vin d'honneur</h3>
-              <p>Vin chaud, mets de saison et premières bulles, dans un cadre festif et tamisé.</p>
-              <p class="timeline__place">— Lieu à préciser —</p>
+
+          <li class="timeline-festive__row timeline-festive__row--reverse">
+            <div class="timeline-festive__text">
+              <p class="timeline-festive__time">17h</p>
+              <h3 class="timeline-festive__title">Vin d'honneur</h3>
+              <p class="timeline-festive__desc">Vin chaud, mets de saison et premières bulles, dans un cadre festif et tamisé.</p>
+              <p class="timeline-festive__place">— Lieu à préciser —</p>
             </div>
+            <span class="timeline-festive__marker" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 3h8l-1 9a3 3 0 0 1-3 3 3 3 0 0 1-3-3z"/>
+                <path d="M12 15v6"/>
+                <path d="M9 21h6"/>
+              </svg>
+            </span>
+            <div class="timeline-festive__spacer" aria-hidden="true"></div>
           </li>
-          <li class="timeline__row">
-            <span class="timeline__time">19h</span>
-            <div class="timeline__content">
-              <h3>Dîner de Noël</h3>
-              <p>Dîner assis suivi d'une soirée dansante. Tenue élégante recommandée.</p>
-              <p class="timeline__place">— Lieu à préciser —</p>
+
+          <li class="timeline-festive__row">
+            <div class="timeline-festive__text">
+              <p class="timeline-festive__time">19h</p>
+              <h3 class="timeline-festive__title">Dîner de Noël</h3>
+              <p class="timeline-festive__desc">Dîner assis suivi d'une soirée dansante. Tenue élégante recommandée.</p>
+              <p class="timeline-festive__place">— Lieu à préciser —</p>
             </div>
+            <span class="timeline-festive__marker" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="13" r="7"/>
+                <circle cx="12" cy="13" r="3"/>
+                <path d="M12 2v4"/>
+              </svg>
+            </span>
+            <div class="timeline-festive__spacer" aria-hidden="true"></div>
           </li>
         </ol>
 
