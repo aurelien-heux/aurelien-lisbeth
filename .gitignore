@@ -1,6 +1,8 @@
 node_modules/
+dist/
 .idea/
 .vscode/
 .superpowers/
-dist/
 .DS_Store
+.env.local
+.env.*.local
