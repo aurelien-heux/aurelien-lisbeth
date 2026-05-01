@@ -90,6 +90,13 @@
   .nav__burger { display: flex; }
 }
 
+/* ===== Eyebrow utility ===== */
+.eyebrow--centered {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.6rem;
+}
+
 /* ===== Hero ===== */
 .hero {
   position: relative;
@@ -549,4 +556,19 @@
 
 @media (max-width: 768px) {
   .faq__item > summary { font-size: 1rem; }
+}
+
+/* ===== Focus-visible accessibility ===== */
+.btn-ghost:focus-visible {
+  outline: 2px solid var(--bordeaux);
+  outline-offset: 3px;
+}
+.btn-primary:focus-visible {
+  outline: 2px solid var(--creme);
+  outline-offset: 3px;
+}
+.nav__links a:focus-visible {
+  outline: 2px solid var(--bordeaux);
+  outline-offset: 4px;
+  border-radius: 2px;
 }
