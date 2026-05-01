@@ -59,3 +59,25 @@ export function downloadIcs(filename, icsContent) {
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
 }
+
+// ----- Wiring du bouton "Ajouter à mon agenda" -----
+if (typeof document !== 'undefined') {
+  const ADD_BTN_ID = 'add-to-calendar';
+
+  const WEDDING_EVENT = {
+    title: 'Mariage Lisbeth & Aurélien',
+    start: new Date('2026-12-05T14:00:00+01:00'), // 14h Paris time
+    end:   new Date('2026-12-05T23:00:00+01:00'), // minuit, fin estimée
+    location: 'Boulogne-sur-Mer, France',
+    description: '14h cérémonie religieuse · 17h vin d\'honneur · 19h dîner de Noël',
+    uid: 'wedding-lisbeth-aurelien-20261205@lisbeth-et-aurelien',
+  };
+
+  const btn = document.getElementById(ADD_BTN_ID);
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const ics = buildIcs(WEDDING_EVENT);
+      downloadIcs('mariage-lisbeth-aurelien.ics', ics);
+    });
+  }
+}
