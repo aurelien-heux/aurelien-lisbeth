@@ -89,3 +89,109 @@
   .nav__date { display: none; }
   .nav__burger { display: flex; }
 }
+
+/* ===== Hero ===== */
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 4vw;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  padding: 6rem 4vw 4rem;
+}
+
+.hero__left  { text-align: right; }
+.hero__right { text-align: left; }
+
+.hero__divider {
+  align-self: stretch;
+  background: var(--ligne);
+  height: 100%;
+}
+
+.hero__names {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -1px;
+  color: var(--crayon);
+  margin: 1.4rem 0 0;
+}
+
+.hero__amp { color: var(--bordeaux); font-weight: 300; }
+
+.hero__tagline {
+  margin: 1.6rem 0 0;
+  margin-left: auto;
+  max-width: 32ch;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--crayon);
+  opacity: 0.75;
+}
+
+.hero__meta {
+  display: grid;
+  gap: 1.4rem;
+  margin: 0;
+  padding: 0;
+}
+.hero__meta div { margin: 0; }
+.hero__meta dt {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--bordeaux);
+  margin-bottom: 0.3rem;
+}
+.hero__meta dd {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  line-height: 1.2;
+  color: var(--crayon);
+}
+.hero__meta dd em { font-style: italic; color: var(--bordeaux); }
+
+.hero__year { font-size: 0.95rem; opacity: 0.7; }
+.hero__sub  { font-size: 0.9rem;  opacity: 0.7; }
+
+.hero__star {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px; height: 8px;
+  background: var(--dore);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(184, 146, 59, 0.18);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    min-height: 75vh;
+    padding: 4rem 4vw;
+    text-align: center;
+  }
+  .hero__left, .hero__right { text-align: center; }
+  .hero__divider { display: none; }
+  .hero__tagline { margin-left: auto; margin-right: auto; }
+  .hero__star { display: none; }
+}
+
+/* Footer minimal */
+.footer {
+  background: var(--sapin);
+  color: var(--creme);
+  padding: 3rem 4vw;
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
