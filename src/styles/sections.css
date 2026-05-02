@@ -517,10 +517,25 @@
 
 /* ===== Infos pratiques ===== */
 .map {
+  --map-header-clip: 56px;
+  position: relative;
+  height: 460px;
   margin: 0 0 var(--space-lg);
   border-radius: 4px;
   overflow: hidden;
   border: 1px solid var(--ligne);
+}
+
+.map iframe {
+  display: block;
+  border: 0;
+  width: 100%;
+  height: calc(100% + var(--map-header-clip));
+  margin-top: calc(-1 * var(--map-header-clip));
+}
+
+@media (max-width: 640px) {
+  .map { height: 360px; }
 }
 
 .info-grid {
