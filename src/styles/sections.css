@@ -165,8 +165,22 @@
 }
 .hero__meta dd em { font-style: italic; color: var(--bordeaux); }
 
-.hero__year { font-size: 0.95rem; opacity: 0.7; }
 .hero__sub  { font-size: 0.9rem;  opacity: 0.7; }
+
+.hero__countdown { color: var(--dore); }
+.hero__countdown em {
+  color: var(--dore);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.hero__countdown .hero__sub {
+  color: var(--dore);
+  opacity: 0.85;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero__meta div:has(.hero__countdown) dt {
+  color: var(--dore);
+}
 
 .hero__star {
   position: absolute;
@@ -517,7 +531,7 @@
 
 /* ===== Infos pratiques ===== */
 .map {
-  --map-header-clip: 56px;
+  --map-header-clip: 67px;
   position: relative;
   height: 460px;
   margin: 0 0 var(--space-lg);
