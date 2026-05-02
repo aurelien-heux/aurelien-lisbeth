@@ -1,4 +1,4 @@
-# Lisbeth & Aurélien — Site du mariage
+# Aurélien & Lisbeth — Site du mariage
 
 Site web statique pour notre mariage du **samedi 5 décembre 2026** à Boulogne-sur-Mer.
 

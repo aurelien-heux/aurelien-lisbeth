@@ -2,11 +2,11 @@
   <rect width="1200" height="630" fill="#FBF8F2"/>
   <line x1="600" y1="100" x2="600" y2="530" stroke="#E5DFD3" stroke-width="2"/>
   <text x="540" y="280" text-anchor="end" font-family="Cormorant Garamond, Georgia, serif"
-        font-style="italic" font-size="120" fill="#2A1F18">Lisbeth</text>
+        font-style="italic" font-size="120" fill="#2A1F18">Aurélien</text>
   <text x="540" y="410" text-anchor="end" font-family="Cormorant Garamond, Georgia, serif"
         font-style="italic" font-size="80" fill="#6F1712">&amp;</text>
   <text x="540" y="540" text-anchor="end" font-family="Cormorant Garamond, Georgia, serif"
-        font-style="italic" font-size="120" fill="#2A1F18">Aurélien</text>
+        font-style="italic" font-size="120" fill="#2A1F18">Lisbeth</text>
 
   <text x="660" y="240" font-family="Inter, Arial, sans-serif"
         font-size="20" letter-spacing="6" fill="#6F1712">SAVE THE DATE</text>

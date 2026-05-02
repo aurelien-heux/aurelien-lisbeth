@@ -1,8 +1,8 @@
-# Site de mariage Lisbeth & Aurélien — Plan d'implémentation
+# Site de mariage Aurélien & Lisbeth — Plan d'implémentation
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Construire un site web statique d'une page pour le mariage de Lisbeth & Aurélien (5 décembre 2026, Boulogne-sur-Mer), avec RSVP relié à Google Sheet, hébergé sur GitHub Pages.
+**Goal:** Construire un site web statique d'une page pour le mariage de Aurélien & Lisbeth (5 décembre 2026, Boulogne-sur-Mer), avec RSVP relié à Google Sheet, hébergé sur GitHub Pages.
 
 **Architecture:** Page unique HTML/CSS/JS vanilla, build optimisé par Vite, déployée via GitHub Actions sur GitHub Pages. Le RSVP envoie un POST JSON à un endpoint Google Apps Script qui écrit les réponses dans une Google Sheet.
 
@@ -19,7 +19,7 @@
 Cette structure découle du spec §5. Chaque fichier a une responsabilité unique.
 
 ```
-lisbeth-et-aurelien/
+aurelien-lisbeth/
 ├── index.html                       # Page unique, balisage sémantique des 7 sections
 ├── public/                          # Servi tel quel par Vite (pas de hash)
 │   ├── CNAME                        # Domaine custom (T8 — TBD)
@@ -54,7 +54,7 @@ lisbeth-et-aurelien/
 └── README.md
 ```
 
-Les fichiers actuels au moment de démarrer le plan (sur `main`) — `index.html`, `index.js`, `styles.css`, `images/*` (Provence template), `assets/fonts/*`, `CNAME` — seront **supprimés** dans la Task 1. Tout le contenu utile (Christmas archive, scaffold, WIP) est déjà préservé dans le worktree `../lisbeth-et-aurelien-archive` sur la branche `archive/pre-redesign-snapshot`.
+Les fichiers actuels au moment de démarrer le plan (sur `main`) — `index.html`, `index.js`, `styles.css`, `images/*` (Provence template), `assets/fonts/*`, `CNAME` — seront **supprimés** dans la Task 1. Tout le contenu utile (Christmas archive, scaffold, WIP) est déjà préservé dans le worktree `../aurelien-lisbeth-archive` sur la branche `archive/pre-redesign-snapshot`.
 
 ---
 
@@ -68,7 +68,7 @@ Les fichiers actuels au moment de démarrer le plan (sur `main`) — `index.html
 - [ ] **Step 1: Supprimer les fichiers Provence template**
 
 ```bash
-cd /home/heuxa/dev/claude/lisbeth-et-aurelien
+cd /home/heuxa/dev/claude/aurelien-lisbeth
 rm -rf index.html index.js styles.css images assets CNAME
 ```
 
@@ -83,7 +83,7 @@ Replace the entire content of `package.json`:
 
 ```json
 {
-  "name": "lisbeth-et-aurelien",
+  "name": "aurelien-lisbeth",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -96,7 +96,7 @@ Replace the entire content of `package.json`:
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aurelien-heux/lisbeth-et-aurelien.git"
+    "url": "git+https://github.com/aurelien-heux/aurelien-lisbeth.git"
   },
   "license": "ISC",
   "devDependencies": {
@@ -138,8 +138,8 @@ export default defineConfig({
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lisbeth & Aurélien — 5 décembre 2026</title>
-  <meta name="description" content="Site du mariage de Lisbeth & Aurélien, samedi 5 décembre 2026 à Boulogne-sur-Mer." />
+  <title>Aurélien & Lisbeth — 5 décembre 2026</title>
+  <meta name="description" content="Site du mariage de Aurélien & Lisbeth, samedi 5 décembre 2026 à Boulogne-sur-Mer." />
   <link rel="stylesheet" href="/src/styles/tokens.css" />
   <link rel="stylesheet" href="/src/styles/base.css" />
   <link rel="stylesheet" href="/src/styles/sections.css" />
@@ -147,7 +147,7 @@ export default defineConfig({
 </head>
 <body>
   <main>
-    <p>Site en construction — Lisbeth &amp; Aurélien · 05.12.2026</p>
+    <p>Site en construction — Aurélien &amp; Lisbeth · 05.12.2026</p>
   </main>
 </body>
 </html>
@@ -574,9 +574,9 @@ In `index.html`, replace `<main id="contenu">…</main>` with:
       <div class="hero__left">
         <span class="eyebrow">Save the date</span>
         <h1 class="hero__names">
-          Lisbeth<br>
+          Aurélien<br>
           <span class="hero__amp">&amp;</span><br>
-          Aurélien
+          Lisbeth
         </h1>
         <p class="hero__tagline">
           <!-- TBD T5 : citation courte ou "" -->
@@ -628,7 +628,7 @@ In `index.html`, replace `<main id="contenu">…</main>` with:
     </section>
 
     <footer class="footer">
-      <p>Lisbeth &amp; Aurélien · 05.12.2026 · Boulogne-sur-Mer</p>
+      <p>Aurélien &amp; Lisbeth · 05.12.2026 · Boulogne-sur-Mer</p>
     </footer>
 
   </main>
@@ -798,12 +798,12 @@ describe('escapeIcsText', () => {
 
 describe('buildIcs', () => {
   const event = {
-    title: 'Mariage Lisbeth & Aurélien',
+    title: 'Mariage Aurélien & Lisbeth',
     start: new Date('2026-12-05T13:00:00Z'),
     end: new Date('2026-12-05T22:00:00Z'),
     location: 'Boulogne-sur-Mer, France',
     description: 'Cérémonie 14h, dîner 19h',
-    uid: 'wedding-lisbeth-aurelien-20261205@example.com',
+    uid: 'wedding-aurelien-lisbeth-20261205@example.com',
   };
 
   it('produces a valid VCALENDAR with all required fields', () => {
@@ -813,11 +813,11 @@ describe('buildIcs', () => {
     expect(ics).toContain('BEGIN:VEVENT');
     expect(ics).toContain('END:VEVENT');
     expect(ics).toContain('END:VCALENDAR');
-    expect(ics).toContain('SUMMARY:Mariage Lisbeth & Aurélien');
+    expect(ics).toContain('SUMMARY:Mariage Aurélien & Lisbeth');
     expect(ics).toContain('LOCATION:Boulogne-sur-Mer\\, France');
     expect(ics).toContain('DTSTART:20261205T130000Z');
     expect(ics).toContain('DTEND:20261205T220000Z');
-    expect(ics).toContain('UID:wedding-lisbeth-aurelien-20261205@example.com');
+    expect(ics).toContain('UID:wedding-aurelien-lisbeth-20261205@example.com');
   });
 
   it('uses CRLF line endings as per RFC 5545', () => {
@@ -845,7 +845,7 @@ Expected: tous les tests échouent (`buildIcs is not a function` ou similaire).
 - [ ] **Step 3: Implémenter `src/scripts/calendar.js`**
 
 ```js
-const PROD_ID = '-//Lisbeth & Aurélien//Mariage 2026//FR';
+const PROD_ID = '-//Aurélien & Lisbeth//Mariage 2026//FR';
 
 export function formatIcsDate(date) {
   if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
@@ -1062,19 +1062,19 @@ Append at the end of `src/scripts/calendar.js`:
 const ADD_BTN_ID = 'add-to-calendar';
 
 const WEDDING_EVENT = {
-  title: 'Mariage Lisbeth & Aurélien',
+  title: 'Mariage Aurélien & Lisbeth',
   start: new Date('2026-12-05T13:00:00+01:00'), // 14h Paris (UTC+1 en décembre)
   end:   new Date('2026-12-05T23:00:00+01:00'), // minuit, fin estimée
   location: 'Boulogne-sur-Mer, France',
   description: '14h cérémonie religieuse · 17h vin d\'honneur · 19h dîner de Noël',
-  uid: 'wedding-lisbeth-aurelien-20261205@lisbeth-et-aurelien',
+  uid: 'wedding-aurelien-lisbeth-20261205@aurelien-lisbeth',
 };
 
 const btn = document.getElementById(ADD_BTN_ID);
 if (btn) {
   btn.addEventListener('click', () => {
     const ics = buildIcs(WEDDING_EVENT);
-    downloadIcs('mariage-lisbeth-aurelien.ics', ics);
+    downloadIcs('mariage-aurelien-lisbeth.ics', ics);
   });
 }
 ```
@@ -1082,9 +1082,9 @@ if (btn) {
 - [ ] **Step 4: Tester manuellement**
 
 Run: `npm run dev`
-- Cliquer "Ajouter à mon agenda" → un fichier `mariage-lisbeth-aurelien.ics` se télécharge.
+- Cliquer "Ajouter à mon agenda" → un fichier `mariage-aurelien-lisbeth.ics` se télécharge.
 - Ouvrir le fichier (texte) : vérifier `BEGIN:VCALENDAR`, `DTSTART:20261205T130000Z`, etc.
-- Importer dans Google Calendar / Apple Calendar : événement "Mariage Lisbeth & Aurélien" créé samedi 5 déc 2026 14h-23h.
+- Importer dans Google Calendar / Apple Calendar : événement "Mariage Aurélien & Lisbeth" créé samedi 5 déc 2026 14h-23h.
 
 - [ ] **Step 5: Vérifier que les tests passent toujours**
 
@@ -2245,11 +2245,11 @@ git commit -m "Task 13: liste de mariage and FAQ sections (native details accord
   <rect width="1200" height="630" fill="#FBF8F2"/>
   <line x1="600" y1="100" x2="600" y2="530" stroke="#E5DFD3" stroke-width="2"/>
   <text x="540" y="280" text-anchor="end" font-family="Cormorant Garamond, Georgia, serif"
-        font-style="italic" font-size="120" fill="#2A1F18">Lisbeth</text>
+        font-style="italic" font-size="120" fill="#2A1F18">Aurélien</text>
   <text x="540" y="410" text-anchor="end" font-family="Cormorant Garamond, Georgia, serif"
         font-style="italic" font-size="80" fill="#6F1712">&amp;</text>
   <text x="540" y="540" text-anchor="end" font-family="Cormorant Garamond, Georgia, serif"
-        font-style="italic" font-size="120" fill="#2A1F18">Aurélien</text>
+        font-style="italic" font-size="120" fill="#2A1F18">Lisbeth</text>
 
   <text x="660" y="240" font-family="Inter, Arial, sans-serif"
         font-size="20" letter-spacing="6" fill="#6F1712">SAVE THE DATE</text>
@@ -2280,8 +2280,8 @@ Replace the existing `<head>` content with:
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Lisbeth & Aurélien — 5 décembre 2026</title>
-  <meta name="description" content="Site du mariage de Lisbeth & Aurélien, samedi 5 décembre 2026 à Boulogne-sur-Mer. Programme, RSVP, hébergements et infos pratiques." />
+  <title>Aurélien & Lisbeth — 5 décembre 2026</title>
+  <meta name="description" content="Site du mariage de Aurélien & Lisbeth, samedi 5 décembre 2026 à Boulogne-sur-Mer. Programme, RSVP, hébergements et infos pratiques." />
   <meta name="theme-color" content="#FBF8F2" />
 
   <!-- Favicon -->
@@ -2289,7 +2289,7 @@ Replace the existing `<head>` content with:
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Lisbeth & Aurélien — Mariage le 5 décembre 2026" />
+  <meta property="og:title" content="Aurélien & Lisbeth — Mariage le 5 décembre 2026" />
   <meta property="og:description" content="Samedi 5 décembre 2026 à Boulogne-sur-Mer. Toutes les infos et le RSVP en un endroit." />
   <meta property="og:image" content="/og-cover.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -2431,7 +2431,7 @@ git commit -m "Task 15: GitHub Action to build and deploy on Pages"
 Replace the entire content of `README.md`:
 
 ```markdown
-# Lisbeth & Aurélien — Site du mariage
+# Aurélien & Lisbeth — Site du mariage
 
 Site web statique pour notre mariage du **samedi 5 décembre 2026** à Boulogne-sur-Mer.
 
@@ -2479,7 +2479,7 @@ npm run dev                  # http://localhost:5173
 
 ## Historique
 
-L'état antérieur (version Noël plus chargée + scaffold Provence + WIP) est préservé dans la branche `archive/pre-redesign-snapshot`, accessible via le worktree `../lisbeth-et-aurelien-archive`.
+L'état antérieur (version Noël plus chargée + scaffold Provence + WIP) est préservé dans la branche `archive/pre-redesign-snapshot`, accessible via le worktree `../aurelien-lisbeth-archive`.
 ```
 
 - [ ] **Step 2: Commit**
@@ -2580,4 +2580,4 @@ Une fois ce plan complété :
 5. Tester l'URL de production avec un RSVP test.
 6. Communiquer l'URL aux invités.
 
-L'archive antérieure reste disponible dans le worktree `../lisbeth-et-aurelien-archive`.
+L'archive antérieure reste disponible dans le worktree `../aurelien-lisbeth-archive`.

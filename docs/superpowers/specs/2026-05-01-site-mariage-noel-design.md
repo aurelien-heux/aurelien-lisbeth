@@ -1,15 +1,15 @@
-# Site de mariage Lisbeth & Aurélien — Design
+# Site de mariage Aurélien & Lisbeth — Design
 
 **Date** : 2026-05-01
 **Auteur** : Aurélien Heux (avec assistance Claude)
 **Statut** : Validé brainstorming, en attente revue avant plan d'implémentation
-**Branche de référence des archives** : `archive/pre-redesign-snapshot` (worktree à `../lisbeth-et-aurelien-archive`)
+**Branche de référence des archives** : `archive/pre-redesign-snapshot` (worktree à `../aurelien-lisbeth-archive`)
 
 ---
 
 ## 1. Objectif
 
-Construire un site web statique pour le mariage de **Lisbeth & Aurélien**, célébré le **samedi 5 décembre 2026** à **Boulogne-sur-Mer** (62), sur une thématique **Noël élégant** (palette bordeaux / vert sapin / doré), permettant aux invités de :
+Construire un site web statique pour le mariage de **Aurélien & Lisbeth**, célébré le **samedi 5 décembre 2026** à **Boulogne-sur-Mer** (62), sur une thématique **Noël élégant** (palette bordeaux / vert sapin / doré), permettant aux invités de :
 
 1. Consulter le programme et les informations pratiques.
 2. Trouver des suggestions d'hébergement.
@@ -98,7 +98,7 @@ Les deux familles sont chargées via Google Fonts avec `preconnect` pour optimis
 ## 5. Architecture du projet
 
 ```
-lisbeth-et-aurelien/
+aurelien-lisbeth/
 ├── index.html                       # Page unique
 ├── public/
 │   ├── CNAME                        # (si domaine custom)
@@ -293,4 +293,4 @@ Ces points ne bloquent pas l'écriture du plan d'implémentation : on peut déve
 
 Une fois cette spec validée → écriture du plan d'implémentation détaillé (skill `superpowers:writing-plans`), puis exécution.
 
-L'archive (Christmas-themed précédente, scaffold Provence, WIP) est préservée dans la branche `archive/pre-redesign-snapshot` accessible via le worktree `../lisbeth-et-aurelien-archive` — utile pour récupérer du contenu factuel (Apps Script existant, listes d'hôtels, polices, etc.).
+L'archive (Christmas-themed précédente, scaffold Provence, WIP) est préservée dans la branche `archive/pre-redesign-snapshot` accessible via le worktree `../aurelien-lisbeth-archive` — utile pour récupérer du contenu factuel (Apps Script existant, listes d'hôtels, polices, etc.).

@@ -1,4 +1,4 @@
-const PROD_ID = '-//Lisbeth & Aurélien//Mariage 2026//FR';
+const PROD_ID = '-//Aurélien & Lisbeth//Mariage 2026//FR';
 
 export function formatIcsDate(date) {
   if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
@@ -65,19 +65,19 @@ if (typeof document !== 'undefined') {
   const ADD_BTN_ID = 'add-to-calendar';
 
   const WEDDING_EVENT = {
-    title: 'Mariage Lisbeth & Aurélien',
+    title: 'Mariage Aurélien & Lisbeth',
     start: new Date('2026-12-05T14:00:00+01:00'), // 14h Paris time
     end:   new Date('2026-12-06T02:00:00+01:00'), // 2h du matin (cohérent avec FAQ)
     location: 'Boulogne-sur-Mer, France',
     description: '14h cérémonie religieuse · 17h vin d\'honneur · 19h dîner de Noël',
-    uid: 'wedding-lisbeth-aurelien-20261205@lisbeth-et-aurelien',
+    uid: 'wedding-aurelien-lisbeth-20261205@aurelien-lisbeth',
   };
 
   const btn = document.getElementById(ADD_BTN_ID);
   if (btn) {
     btn.addEventListener('click', () => {
       const ics = buildIcs(WEDDING_EVENT);
-      downloadIcs('mariage-lisbeth-aurelien.ics', ics);
+      downloadIcs('mariage-aurelien-lisbeth.ics', ics);
     });
   }
 }

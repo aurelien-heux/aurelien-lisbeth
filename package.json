@@ -1,5 +1,5 @@
 {
-  "name": "lisbeth-et-aurelien",
+  "name": "aurelien-lisbeth",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aurelien-heux/lisbeth-et-aurelien.git"
+    "url": "git+https://github.com/aurelien-heux/aurelien-lisbeth.git"
   },
   "license": "ISC",
   "devDependencies": {

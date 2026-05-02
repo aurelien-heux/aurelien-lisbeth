@@ -26,12 +26,12 @@ describe('escapeIcsText', () => {
 
 describe('buildIcs', () => {
   const event = {
-    title: 'Mariage Lisbeth & Aurélien',
+    title: 'Mariage Aurélien & Lisbeth',
     start: new Date('2026-12-05T13:00:00Z'),
     end: new Date('2026-12-05T22:00:00Z'),
     location: 'Boulogne-sur-Mer, France',
     description: 'Cérémonie 14h, dîner 19h',
-    uid: 'wedding-lisbeth-aurelien-20261205@example.com',
+    uid: 'wedding-aurelien-lisbeth-20261205@example.com',
   };
 
   it('produces a valid VCALENDAR with all required fields', () => {
@@ -41,11 +41,11 @@ describe('buildIcs', () => {
     expect(ics).toContain('BEGIN:VEVENT');
     expect(ics).toContain('END:VEVENT');
     expect(ics).toContain('END:VCALENDAR');
-    expect(ics).toContain('SUMMARY:Mariage Lisbeth & Aurélien');
+    expect(ics).toContain('SUMMARY:Mariage Aurélien & Lisbeth');
     expect(ics).toContain('LOCATION:Boulogne-sur-Mer\\, France');
     expect(ics).toContain('DTSTART:20261205T130000Z');
     expect(ics).toContain('DTEND:20261205T220000Z');
-    expect(ics).toContain('UID:wedding-lisbeth-aurelien-20261205@example.com');
+    expect(ics).toContain('UID:wedding-aurelien-lisbeth-20261205@example.com');
   });
 
   it('uses CRLF line endings as per RFC 5545', () => {
