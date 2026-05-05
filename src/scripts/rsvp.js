@@ -31,7 +31,15 @@ export function validateRsvp(input) {
   if (input.attendance === 'oui') {
     const guests = Number(input.guests);
     if (!Number.isInteger(guests) || guests < 1 || guests > 6) {
-      errors.guests = 'Nombre de personnes : 1 à 6.';
+      errors.guests = 'Nombre d\'adultes : 1 à 6.';
+    }
+
+    const rawChildren = input.childrenCount;
+    const childrenCount = rawChildren === undefined || rawChildren === '' ? 0 : Number(rawChildren);
+    if (!Number.isInteger(childrenCount) || childrenCount < 0 || childrenCount > 6) {
+      errors.childrenCount = 'Nombre d\'enfants : 0 à 6.';
+    } else if (childrenCount > 0 && input.childcare !== 'oui' && input.childcare !== 'non') {
+      errors.childcare = 'Merci d\'indiquer si une garde d\'enfants est nécessaire.';
     }
   }
 
@@ -45,7 +53,6 @@ export function validateRsvp(input) {
 const FORM_ID = 'rsvp-form';
 const STATUS_ID = 'rsvp-status';
 const SUBMIT_ID = 'rsvp-submit';
-const ATTENDANCE_ID = 'rsvp-attendance';
 
 const RSVP_URL = import.meta.env?.VITE_RSVP_URL;
 const RSVP_TOKEN = import.meta.env?.VITE_RSVP_TOKEN;
@@ -54,15 +61,21 @@ if (typeof document !== 'undefined') {
   const form = document.getElementById(FORM_ID);
   const status = document.getElementById(STATUS_ID);
   const submit = document.getElementById(SUBMIT_ID);
-  const attendance = document.getElementById(ATTENDANCE_ID);
 
   function toggleConditionalFields() {
     if (!form) return;
-    const value = attendance?.value || '';
+    const fd = new FormData(form);
     form.querySelectorAll('[data-show-when]').forEach(el => {
       const cond = el.dataset.showWhen;
-      const [key, expected] = cond.split(':');
-      const visible = key === 'attendance' && value === expected;
+      const parts = cond.split(':');
+      const key = parts[0];
+      const raw = fd.get(key);
+      let visible = false;
+      if (parts[1] === 'gt') {
+        visible = Number(raw) > Number(parts[2]);
+      } else {
+        visible = raw === parts[1];
+      }
       el.classList.toggle('is-visible', visible);
     });
   }
@@ -72,6 +85,9 @@ if (typeof document !== 'undefined') {
     const fd = new FormData(form);
     const obj = Object.fromEntries(fd.entries());
     if (obj.guests) obj.guests = Number(obj.guests);
+    if (obj.childrenCount !== undefined && obj.childrenCount !== '') {
+      obj.childrenCount = Number(obj.childrenCount);
+    }
     return obj;
   }
 
@@ -86,12 +102,21 @@ if (typeof document !== 'undefined') {
     form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
     Object.keys(errors).forEach(field => {
       const el = form.elements[field];
-      if (el && el.classList) el.classList.add('is-invalid');
+      if (!el) return;
+      if (el.classList) {
+        el.classList.add('is-invalid');
+      } else {
+        // RadioNodeList (toggle group) — mark the wrapping fieldset
+        const first = el[0];
+        const group = first?.closest('.toggle-group');
+        group?.classList.add('is-invalid');
+      }
     });
   }
 
   if (form) {
-    attendance?.addEventListener('change', toggleConditionalFields);
+    form.addEventListener('change', toggleConditionalFields);
+    form.addEventListener('input', toggleConditionalFields);
     toggleConditionalFields();
 
     form.addEventListener('submit', async (event) => {

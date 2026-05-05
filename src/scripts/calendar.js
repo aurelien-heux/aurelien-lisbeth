@@ -60,10 +60,22 @@ export function downloadIcs(filename, icsContent) {
   URL.revokeObjectURL(url);
 }
 
+export function buildGoogleCalendarUrl({ title, start, end, location, description }) {
+  if (start >= end) {
+    throw new RangeError('buildGoogleCalendarUrl: start must be before end');
+  }
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: title,
+    dates: `${formatIcsDate(start)}/${formatIcsDate(end)}`,
+    location: location ?? '',
+    details: description ?? '',
+  });
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
 // ----- Wiring du bouton "Ajouter à mon agenda" -----
 if (typeof document !== 'undefined') {
-  const ADD_BTN_ID = 'add-to-calendar';
-
   const WEDDING_EVENT = {
     title: 'Mariage Aurélien & Lisbeth',
     start: new Date('2026-12-05T14:00:00+01:00'), // 14h Paris time
@@ -73,11 +85,42 @@ if (typeof document !== 'undefined') {
     uid: 'wedding-aurelien-lisbeth-20261205@aurelien-lisbeth',
   };
 
-  const btn = document.getElementById(ADD_BTN_ID);
-  if (btn) {
-    btn.addEventListener('click', () => {
-      const ics = buildIcs(WEDDING_EVENT);
-      downloadIcs('mariage-aurelien-lisbeth.ics', ics);
+  const trigger = document.getElementById('add-to-calendar');
+  const menu    = document.getElementById('add-to-calendar-menu');
+
+  function closeMenu() {
+    if (!menu) return;
+    menu.hidden = true;
+    trigger?.setAttribute('aria-expanded', 'false');
+  }
+  function openMenu() {
+    if (!menu) return;
+    menu.hidden = false;
+    trigger?.setAttribute('aria-expanded', 'true');
+  }
+
+  if (trigger && menu) {
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu.hidden ? openMenu() : closeMenu();
+    });
+    document.addEventListener('click', (e) => {
+      if (!menu.hidden && !menu.contains(e.target)) closeMenu();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    menu.addEventListener('click', (e) => {
+      const action = e.target.closest('[data-cal-type]')?.dataset.calType;
+      if (!action) return;
+      if (action === 'google') {
+        window.open(buildGoogleCalendarUrl(WEDDING_EVENT), '_blank', 'noopener');
+      } else if (action === 'ics') {
+        const ics = buildIcs(WEDDING_EVENT);
+        downloadIcs('mariage-aurelien-lisbeth.ics', ics);
+      }
+      closeMenu();
     });
   }
 }

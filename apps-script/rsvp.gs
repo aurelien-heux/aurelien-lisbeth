@@ -10,7 +10,8 @@
 
 const SHEET_HEADERS = [
   'timestamp', 'name', 'email', 'phone', 'attendance',
-  'guests', 'guestNames', 'diet', 'message', 'ipHash',
+  'guests', 'guestNames', 'childrenCount', 'childrenAges', 'childcare',
+  'diet', 'message', 'ipHash',
 ];
 
 function getProps() {
@@ -93,6 +94,9 @@ function doPost(e) {
       data.attendance || '',
       data.guests || '',
       data.guestNames || '',
+      data.childrenCount === 0 || data.childrenCount ? data.childrenCount : '',
+      data.childrenAges || '',
+      data.childcare || '',
       data.diet || '',
       data.message || '',
       hashIp(e.parameter && e.parameter.userIp),
@@ -101,13 +105,16 @@ function doPost(e) {
     if (notifEmail) {
       const subject = `RSVP: ${data.name || 'anonyme'} — ${data.attendance || ''}`;
       const body = [
-        `Nom    : ${data.name || ''}`,
-        `Email  : ${data.email || ''}`,
-        `Tel    : ${data.phone || ''}`,
+        `Nom      : ${data.name || ''}`,
+        `Email    : ${data.email || ''}`,
+        `Tel      : ${data.phone || ''}`,
         `Présence : ${data.attendance || ''}`,
-        `Personnes : ${data.guests || ''}`,
-        `Accomp.   : ${data.guestNames || ''}`,
-        `Régime    : ${data.diet || ''}`,
+        `Adultes  : ${data.guests || ''}`,
+        `Accomp.  : ${data.guestNames || ''}`,
+        `Enfants  : ${data.childrenCount === 0 || data.childrenCount ? data.childrenCount : ''}`,
+        `Âges     : ${data.childrenAges || ''}`,
+        `Garde    : ${data.childcare || ''}`,
+        `Régime   : ${data.diet || ''}`,
         '',
         'Message  :',
         data.message || '(aucun)',

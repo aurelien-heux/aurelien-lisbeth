@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildIcs, escapeIcsText, formatIcsDate } from '../src/scripts/calendar.js';
+import { buildIcs, buildGoogleCalendarUrl, escapeIcsText, formatIcsDate } from '../src/scripts/calendar.js';
 
 describe('formatIcsDate', () => {
   it('formats a UTC date as YYYYMMDDTHHMMSSZ', () => {
@@ -60,6 +60,34 @@ describe('buildIcs', () => {
       ...event,
       start: new Date('2026-12-05T22:00:00Z'),
       end: new Date('2026-12-05T13:00:00Z'),
+    })).toThrow();
+  });
+});
+
+describe('buildGoogleCalendarUrl', () => {
+  const event = {
+    title: 'Mariage Aurélien & Lisbeth',
+    start: new Date('2026-12-05T13:00:00Z'),
+    end:   new Date('2026-12-05T22:00:00Z'),
+    location: 'Boulogne-sur-Mer, France',
+    description: 'Cérémonie 14h, dîner 19h',
+  };
+
+  it('builds a Google Calendar render URL with all params', () => {
+    const url = new URL(buildGoogleCalendarUrl(event));
+    expect(url.origin + url.pathname).toBe('https://calendar.google.com/calendar/render');
+    expect(url.searchParams.get('action')).toBe('TEMPLATE');
+    expect(url.searchParams.get('text')).toBe('Mariage Aurélien & Lisbeth');
+    expect(url.searchParams.get('dates')).toBe('20261205T130000Z/20261205T220000Z');
+    expect(url.searchParams.get('location')).toBe('Boulogne-sur-Mer, France');
+    expect(url.searchParams.get('details')).toBe('Cérémonie 14h, dîner 19h');
+  });
+
+  it('throws when start is after end', () => {
+    expect(() => buildGoogleCalendarUrl({
+      ...event,
+      start: new Date('2026-12-05T22:00:00Z'),
+      end:   new Date('2026-12-05T13:00:00Z'),
     })).toThrow();
   });
 });

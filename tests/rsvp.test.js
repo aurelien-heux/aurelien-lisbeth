@@ -81,4 +81,56 @@ describe('validateRsvp', () => {
     expect(result.valid).toBe(true);
     expect(result.errors.guests).toBeUndefined();
   });
+
+  it('accepts childrenCount = 0 without childcare info', () => {
+    const result = validateRsvp({ ...base, childrenCount: 0 });
+    expect(result.valid).toBe(true);
+  });
+
+  it('accepts a valid RSVP with children and childcare answer', () => {
+    const result = validateRsvp({
+      ...base,
+      childrenCount: 2,
+      childrenAges: '4 ans, 7 ans',
+      childcare: 'oui',
+    });
+    expect(result.valid).toBe(true);
+    expect(result.errors).toEqual({});
+  });
+
+  it('rejects childrenCount above 6', () => {
+    const result = validateRsvp({ ...base, childrenCount: 7, childcare: 'oui' });
+    expect(result.valid).toBe(false);
+    expect(result.errors.childrenCount).toBeDefined();
+  });
+
+  it('rejects negative childrenCount', () => {
+    const result = validateRsvp({ ...base, childrenCount: -1 });
+    expect(result.valid).toBe(false);
+    expect(result.errors.childrenCount).toBeDefined();
+  });
+
+  it('requires childcare answer when childrenCount > 0', () => {
+    const result = validateRsvp({ ...base, childrenCount: 1, childcare: '' });
+    expect(result.valid).toBe(false);
+    expect(result.errors.childcare).toBeDefined();
+  });
+
+  it('does not require childcare when attendance is non', () => {
+    const result = validateRsvp({
+      ...base,
+      attendance: 'non',
+      guests: undefined,
+      childrenCount: 3,
+    });
+    expect(result.valid).toBe(true);
+    expect(result.errors.childcare).toBeUndefined();
+  });
+
+  it('treats empty/missing childrenCount as 0', () => {
+    const result1 = validateRsvp({ ...base, childrenCount: '' });
+    const result2 = validateRsvp({ ...base, childrenCount: undefined });
+    expect(result1.valid).toBe(true);
+    expect(result2.valid).toBe(true);
+  });
 });

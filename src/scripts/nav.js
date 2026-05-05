@@ -1,11 +1,12 @@
+const header = document.querySelector('.site-header');
 const nav = document.querySelector('.nav');
 const burger = nav?.querySelector('.nav__burger');
 const links = nav?.querySelectorAll('.nav__links a');
 
-if (nav) {
+if (header) {
   // Add scrolled class when page is scrolled
   const onScroll = () => {
-    nav.classList.toggle('is-scrolled', window.scrollY > 8);
+    header.classList.toggle('is-scrolled', window.scrollY > 8);
   };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
