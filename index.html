@@ -8,17 +8,21 @@
   <meta name="description" content="Site du mariage de Aurélien & Lisbeth, samedi 5 décembre 2026 à Boulogne-sur-Mer. Programme, RSVP, hébergements et infos pratiques." />
   <meta name="theme-color" content="#FBF8F2" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <!-- Favicon (boule de Noël A&L) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Aurélien & Lisbeth — Mariage le 5 décembre 2026" />
   <meta property="og:description" content="Samedi 5 décembre 2026 à Boulogne-sur-Mer. Toutes les infos et le RSVP en un endroit." />
-  <meta property="og:image" content="/og-cover.svg" />
-  <!-- TBD : générer og-cover.jpg (1200×630) depuis og-cover.svg pour meilleure compatibilité Open Graph -->
+  <meta property="og:image" content="/og-cover.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Boule de Noël avec sapin, bagues de mariage et monogramme A&L — Aurélien & Lisbeth, 5 décembre 2026" />
   <meta property="og:locale" content="fr_FR" />
 
   <!-- Twitter Card -->
@@ -27,7 +31,7 @@
   <!-- Polices -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="/src/styles/tokens.css" />
   <link rel="stylesheet" href="/src/styles/base.css" />
@@ -37,63 +41,68 @@
 <body>
   <a class="sr-only" href="#contenu">Aller au contenu</a>
 
-  <nav class="nav" aria-label="Navigation principale">
-    <a class="nav__monogram" href="#hero">L &amp; A</a>
-    <ul class="nav__links">
-      <li><a href="#programme">Programme</a></li>
-      <li><a href="#hebergements">Hébergements</a></li>
-      <li><a href="#infos">Infos</a></li>
-      <li><a href="#rsvp">RSVP</a></li>
-      <li><a href="#liste">Liste</a></li>
-      <li><a href="#faq">FAQ</a></li>
-    </ul>
-    <span class="nav__date">05 · 12 · 2026</span>
-    <button class="nav__burger" aria-label="Ouvrir le menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
+  <header class="site-header">
+    <nav class="nav" aria-label="Navigation principale">
+      <a class="nav__monogram" href="/" aria-label="Aurélien & Lisbeth — retour à l'accueil">
+        <span class="nav__monogram-mark">A<span class="nav__monogram-amp">&amp;</span>L</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="#programme">Programme</a></li>
+        <li><a href="#hebergements">Hébergements</a></li>
+        <li><a href="#infos">Infos</a></li>
+        <li><a href="#rsvp">RSVP</a></li>
+        <li><a href="#liste">Liste</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <button class="nav__burger" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
 
   <main id="contenu">
 
-    <header class="hero" id="hero">
+    <section class="hero" id="hero">
       <div class="hero__left">
-        <span class="eyebrow">Save the date</span>
         <h1 class="hero__names">
           Aurélien<br>
           <span class="hero__amp">&amp;</span><br>
           Lisbeth
         </h1>
-        <p class="hero__tagline">
-          <!-- TBD T5 : citation courte ou "" -->
-          Rejoignez-nous pour célébrer notre union, au cœur de la saison la plus douce.
-        </p>
       </div>
-      <div class="hero__divider" aria-hidden="true"></div>
+      <div class="hero__divider" aria-hidden="true">
+        <span class="hero__divider-mark">
+          <picture>
+            <source srcset="/logo-nav.webp" type="image/webp" />
+            <img src="/logo-nav.png" alt="" />
+          </picture>
+        </span>
+      </div>
       <div class="hero__right">
         <dl class="hero__meta">
           <div>
             <dt>Le jour</dt>
-            <dd>samedi <em>5 décembre 2026</em><br><span class="hero__sub">à 14h</span></dd>
+            <dd>
+              <em>Samedi 5 décembre 2026</em><br>
+              <span class="hero__countdown" aria-live="polite">
+                <span data-countdown-days>—</span>
+                <span data-countdown-unit>jours</span>
+                <span class="hero__countdown-clock" data-countdown-clock>—</span>
+              </span>
+            </dd>
           </div>
           <div>
             <dt>Le lieu</dt>
-            <dd>Boulogne<em>-sur-</em>Mer<br><span class="hero__sub">Côte d'Opale, France</span></dd>
-          </div>
-          <div>
-            <dt>Avant le grand jour</dt>
-            <dd class="hero__countdown" aria-live="polite">
-              <em data-countdown-days>—</em> <span data-countdown-unit>jours</span><br>
-              <span class="hero__sub" data-countdown-clock>—</span>
-            </dd>
+            <dd><em>Boulogne-sur-Mer</em><br><span class="hero__sub">Côte d'Opale, France</span></dd>
           </div>
         </dl>
       </div>
-      <span class="hero__star" aria-hidden="true"></span>
-    </header>
+    </section>
+
+    <div class="garland" aria-hidden="true"></div>
 
     <section class="section section--programme" id="programme">
       <div class="container container--medium">
-        <p class="eyebrow eyebrow--centered">Programme du jour</p>
         <h2 class="section-title">Le déroulé</h2>
         <p class="programme__subtitle">Une journée enchantée au cœur de l'hiver</p>
 
@@ -103,7 +112,12 @@
               <p class="timeline-festive__time">14h</p>
               <h3 class="timeline-festive__title">Cérémonie religieuse</h3>
               <p class="timeline-festive__desc">Accueil des invités à partir de 13h30. Prévoir une tenue chaude — la basilique n'est pas chauffée.</p>
-              <p class="timeline-festive__place">— Basilique Notre-Dame · Boulogne-sur-Mer —</p>
+              <p class="timeline-festive__place">
+                <span class="timeline-festive__place-text">
+                  <span>Basilique Notre-Dame</span>
+                  <span>Boulogne-sur-Mer</span>
+                </span>
+              </p>
             </div>
             <span class="timeline-festive__marker" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -116,12 +130,26 @@
             <div class="timeline-festive__spacer" aria-hidden="true"></div>
           </li>
 
+          <li class="timeline-festive__interlude" aria-hidden="true">
+            <span class="timeline-festive__interlude-pill">
+              <svg class="timeline-festive__interlude-dots" viewBox="0 0 32 4" aria-hidden="true">
+                <circle cx="3" cy="2" r="1.2" fill="currentColor"/>
+                <circle cx="16" cy="2" r="1.4" fill="currentColor"/>
+                <circle cx="29" cy="2" r="1.2" fill="currentColor"/>
+              </svg>
+            </span>
+          </li>
+
           <li class="timeline-festive__row timeline-festive__row--reverse">
             <div class="timeline-festive__text">
-              <p class="timeline-festive__time">17h</p>
               <h3 class="timeline-festive__title">Vin d'honneur</h3>
               <p class="timeline-festive__desc">Vin chaud, mets de saison et premières bulles, dans un cadre festif et tamisé.</p>
-              <p class="timeline-festive__place">— La Maloterie · Belle-et-Houllefort —</p>
+              <p class="timeline-festive__place">
+                <span class="timeline-festive__place-text">
+                  <span>La Maloterie</span>
+                  <span>Belle-et-Houllefort</span>
+                </span>
+              </p>
             </div>
             <span class="timeline-festive__marker" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -133,12 +161,26 @@
             <div class="timeline-festive__spacer" aria-hidden="true"></div>
           </li>
 
+          <li class="timeline-festive__interlude" aria-hidden="true">
+            <span class="timeline-festive__interlude-pill">
+              <svg class="timeline-festive__interlude-dots" viewBox="0 0 32 4" aria-hidden="true">
+                <circle cx="3" cy="2" r="1.2" fill="currentColor"/>
+                <circle cx="16" cy="2" r="1.4" fill="currentColor"/>
+                <circle cx="29" cy="2" r="1.2" fill="currentColor"/>
+              </svg>
+            </span>
+          </li>
+
           <li class="timeline-festive__row">
             <div class="timeline-festive__text">
-              <p class="timeline-festive__time">19h</p>
               <h3 class="timeline-festive__title">Dîner de Noël</h3>
               <p class="timeline-festive__desc">Dîner assis suivi d'une soirée dansante. Tenue élégante recommandée.</p>
-              <p class="timeline-festive__place">— La Maloterie · Belle-et-Houllefort —</p>
+              <p class="timeline-festive__place">
+                <span class="timeline-festive__place-text">
+                  <span>La Maloterie</span>
+                  <span>Belle-et-Houllefort</span>
+                </span>
+              </p>
             </div>
             <span class="timeline-festive__marker" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -149,17 +191,39 @@
             </span>
             <div class="timeline-festive__spacer" aria-hidden="true"></div>
           </li>
+
+          <li class="timeline-festive__interlude" aria-hidden="true">
+            <span class="timeline-festive__interlude-pill">
+              <svg class="timeline-festive__interlude-dots" viewBox="0 0 32 4" aria-hidden="true">
+                <circle cx="3" cy="2" r="1.2" fill="currentColor"/>
+                <circle cx="16" cy="2" r="1.4" fill="currentColor"/>
+                <circle cx="29" cy="2" r="1.2" fill="currentColor"/>
+              </svg>
+            </span>
+          </li>
         </ol>
 
         <div class="timeline__cta">
-          <button type="button" class="btn-ghost" id="add-to-calendar">Ajouter à mon agenda</button>
+          <div class="calendar-add">
+            <button type="button" class="btn-ghost"
+                    id="add-to-calendar"
+                    aria-haspopup="true" aria-expanded="false"
+                    aria-controls="add-to-calendar-menu">
+              Ajouter à mon agenda
+            </button>
+            <div class="calendar-add__menu" id="add-to-calendar-menu" role="menu" hidden>
+              <button type="button" role="menuitem" data-cal-type="google">Google Calendar</button>
+              <button type="button" role="menuitem" data-cal-type="ics">Apple · Outlook · autres (.ics)</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
+    <div class="garland" aria-hidden="true"></div>
+
     <section class="section section--hebergements" id="hebergements">
       <div class="container container--medium">
-        <p class="eyebrow eyebrow--centered">Où dormir</p>
         <h2 class="section-title">Hébergements</h2>
 
         <p class="lead">Quelques gîtes recommandés dans les villages alentour, à 15-25 min en voiture des lieux du mariage.</p>
@@ -173,7 +237,7 @@
               <h3>La Bergeronnette</h3>
               <p>134 rue de l'Église<br>62142 Bellebrune</p>
               <p><a href="tel:+33610293565" class="link-discreet">06 10 29 35 65</a></p>
-              <a href="https://www.gites-de-france-pas-de-calais.fr/location-vacances-gite-3-epis-pas-de-calais-boulonnais-bellebrune-la-bergeronnette-jean-marie-et-sylvie-gruzelle-guislain-62G622203.html" target="_blank" rel="noopener noreferrer" class="link-bordeaux">Voir le site →</a>
+              <a href="https://www.gites-de-france-pas-de-calais.fr/location-vacances-gite-3-epis-pas-de-calais-boulonnais-bellebrune-la-bergeronnette-jean-marie-et-sylvie-gruzelle-guislain-62G622203.html" target="_blank" rel="noopener noreferrer" class="link-uppercase">Voir le site →</a>
             </div>
           </article>
           <article class="hotel">
@@ -185,7 +249,7 @@
               <h3>CAP Gîtes</h3>
               <p>315 route de la Massonnerie<br>62142 Bellebrune</p>
               <p><a href="tel:+33622896207" class="link-discreet">06 22 89 62 07</a></p>
-              <a href="https://www.capgites.fr/" target="_blank" rel="noopener noreferrer" class="link-bordeaux">Voir le site →</a>
+              <a href="https://www.capgites.fr/" target="_blank" rel="noopener noreferrer" class="link-uppercase">Voir le site →</a>
             </div>
           </article>
           <article class="hotel">
@@ -196,7 +260,7 @@
               <h3>La Vausserie</h3>
               <p>590 rue Danier<br>62142 Belle-et-Houllefort</p>
               <p><a href="tel:+33321325676" class="link-discreet">03 21 32 56 76</a> · <a href="tel:+33666219254" class="link-discreet">06 66 21 92 54</a></p>
-              <a href="https://www.fermedelavausserie.com/" target="_blank" rel="noopener noreferrer" class="link-bordeaux">Voir le site →</a>
+              <a href="https://www.fermedelavausserie.com/" target="_blank" rel="noopener noreferrer" class="link-uppercase">Voir le site →</a>
             </div>
           </article>
           <article class="hotel">
@@ -207,7 +271,7 @@
               <h3>La Linoterie</h3>
               <p>54 route Nationale du Plouy<br>62142 Colembert</p>
               <p><a href="tel:+33664190100" class="link-discreet">06 64 19 01 00</a></p>
-              <a href="https://www.lalinoterie.fr/" target="_blank" rel="noopener noreferrer" class="link-bordeaux">Voir le site →</a>
+              <a href="https://www.lalinoterie.fr/" target="_blank" rel="noopener noreferrer" class="link-uppercase">Voir le site →</a>
             </div>
           </article>
           <article class="hotel">
@@ -218,7 +282,7 @@
               <h3>Gîte L'Acauriette</h3>
               <p>67 route de Liane<br>62240 Crémarest</p>
               <p><a href="tel:+33629574629" class="link-discreet">06 29 57 46 29</a> · <a href="tel:+33620460680" class="link-discreet">06 20 46 06 80</a></p>
-              <a href="https://www.gites.fr/gites_gite-l-acauriette_cremarest_94060.htm" target="_blank" rel="noopener noreferrer" class="link-bordeaux">Voir le site →</a>
+              <a href="https://www.gites.fr/gites_gite-l-acauriette_cremarest_94060.htm" target="_blank" rel="noopener noreferrer" class="link-uppercase">Voir le site →</a>
             </div>
           </article>
           <article class="hotel">
@@ -229,18 +293,19 @@
               <h3>Gîte de la Fermandise</h3>
               <p>2400 rue de Belle<br>62720 Wierre-Effroy</p>
               <p><a href="tel:+33321928139" class="link-discreet">03 21 92 81 39</a></p>
-              <a href="https://www.gites.fr/gites_gite-de-la-ferm-andise_wierre-effroy_61221.htm" target="_blank" rel="noopener noreferrer" class="link-bordeaux">Voir le site →</a>
+              <a href="https://www.gites.fr/gites_gite-de-la-ferm-andise_wierre-effroy_61221.htm" target="_blank" rel="noopener noreferrer" class="link-uppercase">Voir le site →</a>
             </div>
           </article>
         </div>
 
-        <p class="hotels__note">Pensez aussi à <a href="https://www.airbnb.fr/s/Boulogne-sur-Mer" target="_blank" rel="noopener noreferrer" class="link-bordeaux">Airbnb</a> pour d'autres locations dans le boulonnais.</p>
+        <p class="hotels__note">Pensez aussi à <a href="https://www.airbnb.fr/s/Boulogne-sur-Mer" target="_blank" rel="noopener noreferrer" class="link-uppercase">Airbnb</a> pour d'autres locations dans le boulonnais.</p>
       </div>
     </section>
 
+    <div class="garland" aria-hidden="true"></div>
+
     <section class="section section--infos" id="infos">
       <div class="container container--medium">
-        <p class="eyebrow eyebrow--centered">Pour s'organiser</p>
         <h2 class="section-title">Infos pratiques</h2>
 
         <div class="map">
@@ -274,11 +339,12 @@
       </div>
     </section>
 
+    <div class="garland" aria-hidden="true"></div>
+
     <section class="section section--rsvp" id="rsvp">
       <div class="container container--narrow">
-        <p class="eyebrow eyebrow--centered eyebrow--light">Confirmez votre venue</p>
-        <h2 class="section-title section-title--light">RSVP</h2>
-        <p class="lead lead--light">
+        <h2 class="section-title">RSVP</h2>
+        <p class="lead">
           Merci de répondre <strong>avant le 15 octobre 2026</strong>.
           <!-- TBD T9 : confirmer la date limite -->
         </p>
@@ -286,31 +352,36 @@
         <form class="rsvp-form" id="rsvp-form" novalidate>
           <div class="field">
             <label for="rsvp-name">Nom complet</label>
-            <input type="text" id="rsvp-name" name="name" required autocomplete="name" />
+            <input type="text" id="rsvp-name" name="name" required autocomplete="name" placeholder="Prénom Nom" />
           </div>
 
           <div class="field">
             <label for="rsvp-email">Email</label>
-            <input type="email" id="rsvp-email" name="email" required autocomplete="email" />
+            <input type="email" id="rsvp-email" name="email" required autocomplete="email" placeholder="vous@exemple.com" />
           </div>
 
           <div class="field">
             <label for="rsvp-phone">Téléphone (optionnel)</label>
-            <input type="tel" id="rsvp-phone" name="phone" autocomplete="tel" />
+            <input type="tel" id="rsvp-phone" name="phone" autocomplete="tel" placeholder="06 12 34 56 78" />
           </div>
 
-          <div class="field">
-            <label for="rsvp-attendance">Présence</label>
-            <select id="rsvp-attendance" name="attendance" required>
-              <option value="" disabled selected>Choisissez une réponse</option>
-              <option value="oui">Oui, avec plaisir</option>
-              <option value="non">Non, je ne pourrai pas</option>
-            </select>
-          </div>
+          <fieldset class="field toggle-group" id="rsvp-attendance-group">
+            <legend>Présence</legend>
+            <div class="toggle-group__buttons" role="radiogroup" aria-required="true">
+              <label class="toggle-option">
+                <input type="radio" name="attendance" value="oui" required />
+                <span>Oui, avec plaisir</span>
+              </label>
+              <label class="toggle-option">
+                <input type="radio" name="attendance" value="non" required />
+                <span>Non, je ne pourrai pas</span>
+              </label>
+            </div>
+          </fieldset>
 
           <div class="field" data-show-when="attendance:oui">
-            <label for="rsvp-guests">Nombre d'accompagnant·es (vous compris·e)</label>
-            <input type="number" id="rsvp-guests" name="guests" min="1" max="6" />
+            <label for="rsvp-guests">Nombre d'adultes (vous compris·e)</label>
+            <input type="number" id="rsvp-guests" name="guests" min="1" max="6" inputmode="numeric" placeholder="2" />
           </div>
 
           <div class="field" data-show-when="attendance:oui">
@@ -319,13 +390,37 @@
           </div>
 
           <div class="field" data-show-when="attendance:oui">
+            <label for="rsvp-children-count">Nombre d'enfants</label>
+            <input type="number" id="rsvp-children-count" name="childrenCount" min="0" max="6" value="0" inputmode="numeric" />
+          </div>
+
+          <div class="field" data-show-when="childrenCount:gt:0">
+            <label for="rsvp-children-ages">Âge des enfants</label>
+            <input type="text" id="rsvp-children-ages" name="childrenAges" placeholder="3 ans, 7 ans…" />
+          </div>
+
+          <fieldset class="field toggle-group" data-show-when="childrenCount:gt:0">
+            <legend>Garde d'enfants à prévoir ?</legend>
+            <div class="toggle-group__buttons" role="radiogroup">
+              <label class="toggle-option">
+                <input type="radio" name="childcare" value="oui" />
+                <span>Oui, merci</span>
+              </label>
+              <label class="toggle-option">
+                <input type="radio" name="childcare" value="non" />
+                <span>Non, on gère</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="field" data-show-when="attendance:oui">
             <label for="rsvp-diet">Allergies / régimes</label>
-            <textarea id="rsvp-diet" name="diet" rows="2"></textarea>
+            <textarea id="rsvp-diet" name="diet" rows="2" placeholder="Végétarien, sans gluten, allergie aux fruits à coque…"></textarea>
           </div>
 
           <div class="field">
             <label for="rsvp-message">Un petit mot ?</label>
-            <textarea id="rsvp-message" name="message" rows="3"></textarea>
+            <textarea id="rsvp-message" name="message" rows="3" placeholder="Une anecdote, un vœu, une question…"></textarea>
           </div>
 
           <!-- Honeypot anti-bot, caché par CSS -->
@@ -341,9 +436,10 @@
       </div>
     </section>
 
+    <div class="garland" aria-hidden="true"></div>
+
     <section class="section section--liste" id="liste">
       <div class="container container--narrow section--liste__inner">
-        <p class="eyebrow eyebrow--centered">Et si vous le souhaitez</p>
         <h2 class="section-title">Notre liste</h2>
 
         <p class="lead">
@@ -358,9 +454,10 @@
       </div>
     </section>
 
+    <div class="garland" aria-hidden="true"></div>
+
     <section class="section section--faq" id="faq">
       <div class="container container--narrow">
-        <p class="eyebrow eyebrow--centered">Questions fréquentes</p>
         <h2 class="section-title">FAQ</h2>
 
         <div class="faq">
@@ -397,7 +494,11 @@
     </section>
 
     <footer class="footer">
-      <p>Aurélien &amp; Lisbeth · 05.12.2026 · Boulogne-sur-Mer</p>
+      <ul class="footer__list">
+        <li>Aurélien &amp; Lisbeth</li>
+        <li>05.12.2026</li>
+        <li>Boulogne-sur-Mer</li>
+      </ul>
     </footer>
 
   </main>

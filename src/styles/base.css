@@ -7,20 +7,25 @@ body {
   background: var(--creme);
   color: var(--crayon);
   font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 16px;
+  font-weight: 400;
+  font-size: var(--text-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4 {
   margin: 0;
+  font-family: var(--font-serif);
   font-weight: 400;
   line-height: 1.2;
 }
+h1 { font-size: 5rem; }
+h2 { font-size: 3.5rem; }
+h3 { font-size: 2rem; }
 
 p { margin: 0 0 var(--space-sm); }
 
+a, span { font-size: var(--text-body); }
 a { color: inherit; text-decoration: none; }
 
 img { max-width: 100%; height: auto; display: block; }
@@ -34,29 +39,48 @@ button {
 }
 
 /* Utilitaires */
+/* Pattern typo "label uppercase" centralisé.
+   :is() pour adopter la spécificité (0,1,1) de `.nav__links a` →
+   bat la règle globale `a { font-size: var(--text-body); }` ainsi
+   que `button { font: inherit }`. */
+:is(
+  .eyebrow,
+  .nav__links a,
+  .hero__meta dt,
+  .footer,
+  .timeline-festive__place,
+  .btn-ghost,
+  .btn-primary,
+  .calendar-add__menu button,
+  .hotel__tag,
+  .link-uppercase,
+  .info-note,
+  .field label,
+  .field legend
+) {
+  font-size: var(--text-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.7rem;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: var(--bordeaux);
+  color: var(--tertiary);
 }
 
 .eyebrow::before {
   content: '';
   width: 30px;
   height: 1px;
-  background: var(--bordeaux);
+  background: var(--tertiary);
 }
 
 .section-title {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(2.5rem, 4.5vw, 3.6rem);
   text-align: center;
   letter-spacing: -0.5px;
+  color: var(--primary);
   margin-bottom: var(--space-lg);
 }
 
@@ -70,12 +94,45 @@ button {
 .container--wide   { max-width: var(--container-wide); }
 
 .section {
+  position: relative;
+  max-width: 120rem;
+  margin-left: auto;
+  margin-right: auto;
   padding: var(--section-py-desktop) 0;
-  border-top: 1px solid var(--ligne);
+}
+
+/* Guirlande horizontale — élément autonome inséré dans le flow entre
+   les sections. Étant un vrai bloc, il n'apparaît jamais "à cheval" sur
+   le bas du hero au chargement (contrairement à un pseudo-element en
+   position absolute placé sur la frontière). */
+.garland {
+  display: block;
+  width: 353px;                        /* 294 × 1.2 */
+  aspect-ratio: 1400 / 194;            /* garland : 7.22:1 */
+  margin: 0 auto;
+  background: url("/garland.webp") center / contain no-repeat;
+  pointer-events: none;
+}
+
+/* Le hero a un padding-bottom plus faible (2rem) que celui des sections
+   (--section-py-desktop). On rééquilibre la première guirlande pour que
+   l'espace au-dessus et au-dessous reste identique aux autres. */
+.hero + .garland {
+  margin-top: calc(var(--section-py-desktop) - 2rem);
 }
 
 @media (max-width: 768px) {
-  .section { padding: var(--section-py-mobile) 0; }
+  .section {
+    padding: var(--section-py-mobile) 0;
+  }
+  .garland {
+    width: min(70vw, 292px);           /* 58vw × 1.2, 243 × 1.2 */
+  }
+  /* Mobile : hero padding-bottom (4rem) === section-py-mobile (4rem),
+     donc on annule le décalage desktop. */
+  .hero + .garland {
+    margin-top: 0;
+  }
 }
 
 /* Visually hidden (accessibility) */
@@ -102,10 +159,10 @@ button {
   overflow: visible;
   white-space: normal;
   background: var(--creme);
-  color: var(--bordeaux);
-  border: 2px solid var(--bordeaux);
+  color: var(--primary);
+  border: 2px solid var(--primary);
   z-index: 200;
-  font-size: 0.85rem;
+  font-size: var(--text-body);
   font-weight: 500;
   text-decoration: none;
 }
