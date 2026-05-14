@@ -55,4 +55,8 @@
   /* Petite étoile dorée à 4 branches, séparateur entre items de nav
      et de footer — reprend le motif central de la flourish. */
   --svg-star-mini: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M4 0 L4.6 3.4 L8 4 L4.6 4.6 L4 8 L3.4 4.6 L0 4 L3.4 3.4 Z' fill='%23B8923B'/></svg>");
+
+  /* Même étoile, déclinée dans la couleur du texte standard
+     (--crayon) pour servir de puce de liste. */
+  --svg-star-bullet: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M4 0 L4.6 3.4 L8 4 L4.6 4.6 L4 8 L3.4 4.6 L0 4 L3.4 3.4 Z' fill='%232A1F18'/></svg>");
 }

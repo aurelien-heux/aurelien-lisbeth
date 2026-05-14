@@ -1079,17 +1079,85 @@
   margin: 0;
 }
 
+/* Liste éditoriale avec étoile dorée du flourish en guise de puce.
+   Taille décroissante selon la profondeur d'indentation. */
 .info-list {
   margin: 0;
-  padding-left: 1.2rem;
+  padding-left: 0;
+  list-style: none;
   font-size: var(--text-body);
   color: var(--crayon);
   opacity: var(--opacity-soft);
 }
 
-.info-list li {
+.info-list > li {
+  position: relative;
+  padding-left: 1.5rem;
   margin-bottom: 0.5rem;
   line-height: 1.55;
+}
+
+/* Pseudo de la hauteur d'une ligne. background-position vertical à 58 %
+   plutôt que 50 % : compense le décalage entre le centre géométrique de
+   la line-box et la x-height (milieu visuel des minuscules) — l'étoile
+   tombe ainsi pile à hauteur du regard sur la 1ʳᵉ ligne. */
+.info-list > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 1.55em;
+  background: var(--svg-star-bullet) 0 50% / 10px no-repeat;
+}
+
+/* Sous-liste imbriquée : étoile plus petite, indentation moindre. */
+.info-list ul {
+  margin: 0.4rem 0 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.info-list ul > li {
+  position: relative;
+  padding-left: 1.1rem;
+  margin-bottom: 0.25rem;
+  line-height: 1.55;
+}
+
+.info-list ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 7px;
+  height: 1.55em;
+  background: var(--svg-star-bullet) 0 50% / 7px no-repeat;
+}
+
+/* Liste parking : tient sur une seule ligne quel que soit le viewport.
+   Police légèrement réduite + nowrap pour que les 5 puces restent
+   alignées et lisibles sur mobile (≈360px). */
+.parking-list {
+  font-size: 0.85rem;
+}
+.parking-list li {
+  white-space: nowrap;
+}
+
+/* Mention de durée ou distance — italique doré, classe réutilisable
+   pour tout temps de trajet (à pied, en voiture, train, etc.). Petite
+   marge horizontale pour que l'italique respire entre les mots
+   adjacents comme s'il y avait un espace standard de chaque côté. */
+.time {
+  margin: 0 0.2em;
+  color: var(--tertiary);
+  font-style: italic;
+}
+
+/* Nom du parking — vert sapin pour le distinguer du tarif. */
+.park-name {
+  color: var(--secondary);
 }
 
 /* ===== RSVP ===== */
@@ -1381,13 +1449,6 @@
   color: var(--primary);
   margin: 0;
   line-height: 1.1;
-}
-
-.liste-link-card__desc {
-  font-size: var(--text-body);
-  color: var(--crayon);
-  opacity: var(--opacity-mute);
-  margin: 0;
 }
 
 @media (max-width: 640px) {
