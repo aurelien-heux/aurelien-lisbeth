@@ -972,12 +972,16 @@
   margin: 0 0 0.6rem;
 }
 
-.explore article > p:last-child {
+.explore article p:not(.explore__meta) {
   font-size: var(--text-body);
   color: var(--crayon);
   opacity: var(--opacity-mute);
   line-height: 1.55;
-  margin: 0;
+  text-align: justify;
+  margin: 0 0 0.6rem;
+}
+.explore article p:not(.explore__meta):last-child {
+  margin-bottom: 0;
 }
 
 /* Espace supplémentaire sous la section Tourisme avant la guirlande. */
