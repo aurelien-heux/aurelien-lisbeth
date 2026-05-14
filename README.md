@@ -43,7 +43,3 @@ npm run dev                  # http://localhost:5173
 ## Direction visuelle
 
 "Éditorial épuré". Spec complète : [`docs/superpowers/specs/2026-05-01-site-mariage-noel-design.md`](./docs/superpowers/specs/2026-05-01-site-mariage-noel-design.md).
-
-## Historique
-
-L'état antérieur (version Noël plus chargée + scaffold Provence + WIP) est préservé dans la branche `archive/pre-redesign-snapshot`, accessible via le worktree `../lisbeth-et-aurelien-archive`.
