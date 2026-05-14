@@ -176,20 +176,18 @@
     height: 28px;
   }
 
-  /* Flourish dorée de chaque côté du monogramme en mobile */
-  .nav__monogram::before,
-  .nav__monogram::after {
+  /* Sur mobile : on cache les lettres A & L et on garde uniquement
+     la flourish dorée comme décor central du header. Le lien wraps
+     toujours toute la zone (cible "retour à l'accueil"). */
+  .nav__monogram-mark,
+  .nav__monogram-amp { display: none; }
+  .nav__monogram::before {
     content: '';
     flex-shrink: 0;
-    width: 60px;
+    width: 120px;
     height: 14px;
     background: var(--svg-flourish) center / contain no-repeat;
   }
-  .nav__monogram::before { margin-right: 0.8rem; }
-  .nav__monogram::after  { margin-left: 0.8rem; }
-
-  .nav__monogram-mark { font-size: 1.1rem; line-height: 1; }
-  .nav__monogram-amp  { font-size: 1.1rem; }
 
   /* Dropdown : sous la barre, pleine largeur d'écran. */
   .nav__links {
@@ -413,11 +411,12 @@
   .hero {
     grid-template-columns: 1fr;
     gap: 2.5rem;
-    /* dvh suit la barre d'adresse mobile : au chargement le hero
-       remplit pile la zone visible (le garland reste sous le pli).
-       vh sert de fallback pour les vieux navigateurs. */
+    /* svh = small viewport height (barre d'adresse visible). Stable
+       pendant le scroll, contrairement à dvh qui grandit quand la
+       barre se rétracte sur iOS et provoque un redraw "zoom" du
+       background. vh sert de fallback pour les vieux navigateurs. */
     min-height: calc(100vh - 52px);
-    min-height: calc(100dvh - 52px);
+    min-height: calc(100svh - 52px);
     padding: 4rem 4vw;
     text-align: center;
   }
@@ -477,9 +476,12 @@
   flex-shrink: 0;
 }
 
-/* Mobile : on masque la date et la ville pour ne garder que les noms,
-   et on rétrécit les flourishes pour que tout tienne sur une seule
-   ligne même sur les petits écrans (≈320px). */
+/* Version courte/monogramme du nom mariés, activée en mobile.
+   Cachée par défaut en desktop. */
+.footer__name-short { display: none; }
+
+/* Mobile : on masque la date et la ville et on remplace les prénoms
+   par le monogramme A & L. Flourishes rétrécies pour tenir sur ≈320px. */
 @media (max-width: 640px) {
   .footer__list { flex-wrap: nowrap; }
   .footer__list li:nth-child(n+2) { display: none; }
@@ -490,6 +492,24 @@
   }
   .footer__list::before { margin-right: 0.7rem; }
   .footer__list::after  { margin-left: 0.7rem; }
+
+  .footer__name-long { display: none; }
+  .footer__name-short {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    line-height: 1;
+  }
+  .footer__name-amp {
+    margin: 0 0.18em;
+    font-weight: 500;
+    font-size: inherit;
+    opacity: 0.85;
+  }
 }
 
 /* ===== Programme / Timeline festive ===== */
@@ -1109,6 +1129,17 @@
   transition: border-color var(--transition-fast), background var(--transition-fast);
 }
 
+/* Sur mobile, Safari iOS zoome automatiquement sur un champ dont la
+   font-size est < 16px. On force 16px (taille de saisie) pour éviter
+   le zoom, sans toucher au reste du design qui garde var(--text-body). */
+@media (max-width: 768px) {
+  .field input,
+  .field select,
+  .field textarea {
+    font-size: 16px;
+  }
+}
+
 .field textarea {
   resize: none;
 }
@@ -1357,16 +1388,6 @@
   color: var(--crayon);
   opacity: var(--opacity-mute);
   margin: 0;
-}
-
-/* Note sur l'urne physique : italique discret. */
-.liste-physical {
-  text-align: center;
-  max-width: 56ch;
-  margin: 0 auto;
-  font-style: italic;
-  font-size: var(--text-body);
-  color: var(--secondary);
 }
 
 @media (max-width: 640px) {
