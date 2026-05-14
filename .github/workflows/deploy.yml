@@ -34,6 +34,11 @@ jobs:
           VITE_RSVP_URL: ${{ secrets.VITE_RSVP_URL }}
           VITE_RSVP_TOKEN: ${{ secrets.VITE_RSVP_TOKEN }}
 
+      # CNAME vit à la racine du repo (visible dans le git tree).
+      # On le copie dans le bundle servi par GitHub Pages pour
+      # préserver le domaine custom (aurelien-lisbeth.com).
+      - run: cp CNAME dist/CNAME
+
       - uses: actions/configure-pages@v4
 
       - uses: actions/upload-pages-artifact@v3
