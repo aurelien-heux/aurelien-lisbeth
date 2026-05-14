@@ -812,7 +812,8 @@
 
 /* ===== Hébergements ===== */
 .lead {
-  text-align: center;
+  text-align: justify;
+  text-align-last: center;
   max-width: 56ch;
   margin: 0 auto var(--space-lg);
   font-size: var(--text-body);
