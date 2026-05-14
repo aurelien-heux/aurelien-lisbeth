@@ -478,9 +478,18 @@
 }
 
 /* Mobile : on masque la date et la ville pour ne garder que les noms,
-   les flourish d'extrémité restent. */
+   et on rétrécit les flourishes pour que tout tienne sur une seule
+   ligne même sur les petits écrans (≈320px). */
 @media (max-width: 640px) {
+  .footer__list { flex-wrap: nowrap; }
   .footer__list li:nth-child(n+2) { display: none; }
+  .footer__list::before,
+  .footer__list::after {
+    width: 50px;
+    height: 10px;
+  }
+  .footer__list::before { margin-right: 0.7rem; }
+  .footer__list::after  { margin-left: 0.7rem; }
 }
 
 /* ===== Programme / Timeline festive ===== */
