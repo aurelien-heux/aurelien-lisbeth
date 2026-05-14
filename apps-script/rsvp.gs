@@ -9,9 +9,9 @@
  */
 
 const SHEET_HEADERS = [
-  'timestamp', 'name', 'email', 'phone', 'attendance',
-  'guests', 'guestNames', 'childrenCount', 'childrenAges', 'childcare',
-  'diet', 'message', 'ipHash',
+  'timestamp', 'name', 'email', 'phone',
+  'attendance', 'attendanceNext',
+  'participants', 'diet', 'message',
 ];
 
 function getProps() {
@@ -35,6 +35,11 @@ function getSheet() {
   let sheet = ss.getSheetByName(tab);
   if (!sheet) {
     sheet = ss.insertSheet(tab);
+  }
+  // Pose l'en-tête à la première ligne si l'onglet est vide (couvre à la
+  // fois la création d'un nouvel onglet et un onglet créé manuellement
+  // mais encore vierge).
+  if (sheet.getLastRow() === 0) {
     sheet.appendRow(SHEET_HEADERS);
     sheet.getRange(1, 1, 1, SHEET_HEADERS.length).setFontWeight('bold');
   }
@@ -52,26 +57,53 @@ function isDuplicateRecent(sheet, email, withinMinutes) {
   });
 }
 
-function hashIp(ip) {
-  if (!ip) return '';
-  const bytes = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, ip);
-  return bytes.map(b => (b & 0xff).toString(16).padStart(2, '0')).join('').slice(0, 12);
+/**
+ * Envoie l'email de notification puis applique le label Gmail "Mariage RSVP"
+ * sur son thread. Approche déterministe : on passe par un Draft → send()
+ * pour récupérer directement le GmailMessage envoyé (pas de search async qui
+ * pourrait rater l'email pas encore indexé).
+ * Label name configurable via la Script Property RSVP_LABEL (défaut : "Mariage RSVP").
+ */
+function sendRsvpNotification(notifEmail, subject, body) {
+  console.log('sendRsvpNotification: start, notifEmail=' + notifEmail);
+  const draft = GmailApp.createDraft(notifEmail, subject, body);
+  console.log('sendRsvpNotification: draft created');
+  const sentMessage = draft.send();
+  console.log('sendRsvpNotification: draft sent, messageId=' + sentMessage.getId());
+
+  try {
+    const labelName = getProps().getProperty('RSVP_LABEL') || 'Mariage RSVP';
+    let label = GmailApp.getUserLabelByName(labelName);
+    if (!label) {
+      label = GmailApp.createLabel(labelName);
+      console.log('sendRsvpNotification: created new label "' + labelName + '"');
+    }
+    sentMessage.getThread().addLabel(label);
+    console.log('sendRsvpNotification: label "' + labelName + '" applied to thread');
+  } catch (err) {
+    // Best-effort : si le label échoue le mail est déjà parti.
+    console.warn('RSVP label apply failed:', err);
+  }
 }
 
 function doPost(e) {
+  console.log('doPost: invoked');
   try {
     const props = getProps();
     const expectedToken = props.getProperty('RSVP_TOKEN');
     const notifEmail = props.getProperty('NOTIF_EMAIL');
+    console.log('doPost: NOTIF_EMAIL=' + (notifEmail || '(not set)'));
 
     let data;
     try {
       data = JSON.parse(e.postData.contents);
     } catch (_) {
+      console.warn('doPost: invalid JSON body');
       return jsonResponse({ ok: false, error: 'invalid_json' });
     }
 
     if (!expectedToken || data.token !== expectedToken) {
+      console.warn('doPost: unauthorized (token mismatch)');
       return jsonResponse({ ok: false, error: 'unauthorized' });
     }
 
@@ -92,34 +124,31 @@ function doPost(e) {
       data.email || '',
       data.phone || '',
       data.attendance || '',
-      data.guests || '',
-      data.guestNames || '',
-      data.childrenCount === 0 || data.childrenCount ? data.childrenCount : '',
-      data.childrenAges || '',
-      data.childcare || '',
+      data.attendanceNext || '',
+      data.participants || '',
       data.diet || '',
       data.message || '',
-      hashIp(e.parameter && e.parameter.userIp),
     ]);
 
     if (notifEmail) {
-      const subject = `RSVP: ${data.name || 'anonyme'} — ${data.attendance || ''}`;
+      const subject = `[Mariage RSVP] ${data.name || 'anonyme'} — ${data.attendance || ''}`;
       const body = [
-        `Nom      : ${data.name || ''}`,
-        `Email    : ${data.email || ''}`,
-        `Tel      : ${data.phone || ''}`,
-        `Présence : ${data.attendance || ''}`,
-        `Adultes  : ${data.guests || ''}`,
-        `Accomp.  : ${data.guestNames || ''}`,
-        `Enfants  : ${data.childrenCount === 0 || data.childrenCount ? data.childrenCount : ''}`,
-        `Âges     : ${data.childrenAges || ''}`,
-        `Garde    : ${data.childcare || ''}`,
-        `Régime   : ${data.diet || ''}`,
+        `Nom        : ${data.name || ''}`,
+        `Email      : ${data.email || ''}`,
+        `Tel        : ${data.phone || ''}`,
+        `Jour       : ${data.attendance || ''}`,
+        `Lendemain  : ${data.attendanceNext || ''}`,
         '',
-        'Message  :',
+        'Participants :',
+        data.participants || '(non renseigné)',
+        '',
+        'Allergies / régimes :',
+        data.diet || '(aucun)',
+        '',
+        'Commentaires :',
         data.message || '(aucun)',
       ].join('\n');
-      MailApp.sendEmail(notifEmail, subject, body);
+      sendRsvpNotification(notifEmail, subject, body);
     }
 
     return jsonResponse({ ok: true });

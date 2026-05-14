@@ -23,10 +23,9 @@
   /* Containers */
   --container-narrow: 720px;
   --container-medium: 960px;
-  --container-wide:   1200px;
 
   /* Tailles de texte */
-  --text-label: 0.75rem;        /* 12px (root = 16px) — uppercase / eyebrow */
+  --text-label: 0.75rem;        /* 12px (root = 16px) — uppercase */
   --text-body:  0.9rem;         /* ~14.4px — corps de texte */
 
   /* Tracking */
@@ -47,13 +46,13 @@
   /* Transitions */
   --transition-fast: .25s ease;
 
-  /* Flourish SVG dorée (deux S-curves continues), réutilisée comme
-     décor en début/fin de menu desktop ET comme séparateur entre
-     items du menu mobile. Couleur figée en hex (var() impossible
-     dans data-URL). */
-  --svg-flourish: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 14'><path d='M2 7 C 12 1 22 13 40 7 C 58 1 68 13 78 7' fill='none' stroke='%23B8923B' stroke-width='0.4' stroke-linecap='round'/></svg>");
+  /* Flourish SVG dorée — étoile centrale entourée de petites étoiles
+     et de scintilles, évoque la magie de Noël. Réutilisée comme décor
+     en début/fin de menu desktop ET comme séparateur entre items du
+     menu mobile. Couleur figée en hex (var() impossible dans data-URL). */
+  --svg-flourish: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 14'><path d='M40 1.5 L41 6 L45.5 7 L41 8 L40 12.5 L39 8 L34.5 7 L39 6 Z' fill='%23B8923B'/><path d='M22 3.5 L22.6 6.4 L25.5 7 L22.6 7.6 L22 10.5 L21.4 7.6 L18.5 7 L21.4 6.4 Z' fill='%23B8923B' opacity='0.85'/><path d='M58 3.5 L58.6 6.4 L61.5 7 L58.6 7.6 L58 10.5 L57.4 7.6 L54.5 7 L57.4 6.4 Z' fill='%23B8923B' opacity='0.85'/><circle cx='8' cy='7' r='0.9' fill='%23B8923B' opacity='0.75'/><circle cx='72' cy='7' r='0.9' fill='%23B8923B' opacity='0.75'/><circle cx='14' cy='3.5' r='0.5' fill='%23B8923B' opacity='0.6'/><circle cx='14' cy='10.5' r='0.5' fill='%23B8923B' opacity='0.6'/><circle cx='66' cy='3.5' r='0.5' fill='%23B8923B' opacity='0.6'/><circle cx='66' cy='10.5' r='0.5' fill='%23B8923B' opacity='0.6'/></svg>");
 
-  /* Petit losange doré, utilisé comme séparateur entre items dans la
-     nav et le footer. */
-  --svg-diamond: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M4 0 L8 4 L4 8 L0 4 Z' fill='%23B8923B'/></svg>");
+  /* Petite étoile dorée à 4 branches, séparateur entre items de nav
+     et de footer — reprend le motif central de la flourish. */
+  --svg-star-mini: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path d='M4 0 L4.6 3.4 L8 4 L4.6 4.6 L4 8 L3.4 4.6 L0 4 L3.4 3.4 Z' fill='%23B8923B'/></svg>");
 }

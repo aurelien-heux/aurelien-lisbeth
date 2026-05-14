@@ -29,17 +29,11 @@ export function validateRsvp(input) {
   }
 
   if (input.attendance === 'oui') {
-    const guests = Number(input.guests);
-    if (!Number.isInteger(guests) || guests < 1 || guests > 6) {
-      errors.guests = 'Nombre d\'adultes : 1 à 6.';
+    if (input.attendanceNext !== 'oui' && input.attendanceNext !== 'non') {
+      errors.attendanceNext = 'Merci d\'indiquer votre présence le lendemain.';
     }
-
-    const rawChildren = input.childrenCount;
-    const childrenCount = rawChildren === undefined || rawChildren === '' ? 0 : Number(rawChildren);
-    if (!Number.isInteger(childrenCount) || childrenCount < 0 || childrenCount > 6) {
-      errors.childrenCount = 'Nombre d\'enfants : 0 à 6.';
-    } else if (childrenCount > 0 && input.childcare !== 'oui' && input.childcare !== 'non') {
-      errors.childcare = 'Merci d\'indiquer si une garde d\'enfants est nécessaire.';
+    if (typeof input.participants !== 'string' || input.participants.trim().length < 2) {
+      errors.participants = 'Merci de lister les prénoms des participants.';
     }
   }
 
@@ -62,33 +56,21 @@ if (typeof document !== 'undefined') {
   const status = document.getElementById(STATUS_ID);
   const submit = document.getElementById(SUBMIT_ID);
 
+  const conditionalFields = form ? form.querySelectorAll('[data-show-when]') : [];
+
   function toggleConditionalFields() {
     if (!form) return;
     const fd = new FormData(form);
-    form.querySelectorAll('[data-show-when]').forEach(el => {
-      const cond = el.dataset.showWhen;
-      const parts = cond.split(':');
-      const key = parts[0];
-      const raw = fd.get(key);
-      let visible = false;
-      if (parts[1] === 'gt') {
-        visible = Number(raw) > Number(parts[2]);
-      } else {
-        visible = raw === parts[1];
-      }
-      el.classList.toggle('is-visible', visible);
+    conditionalFields.forEach(el => {
+      const [key, expected] = el.dataset.showWhen.split(':');
+      el.classList.toggle('is-visible', fd.get(key) === expected);
     });
   }
 
   function readForm() {
     if (!form) return null;
     const fd = new FormData(form);
-    const obj = Object.fromEntries(fd.entries());
-    if (obj.guests) obj.guests = Number(obj.guests);
-    if (obj.childrenCount !== undefined && obj.childrenCount !== '') {
-      obj.childrenCount = Number(obj.childrenCount);
-    }
-    return obj;
+    return Object.fromEntries(fd.entries());
   }
 
   function setStatus(message, kind) {
@@ -116,7 +98,6 @@ if (typeof document !== 'undefined') {
 
   if (form) {
     form.addEventListener('change', toggleConditionalFields);
-    form.addEventListener('input', toggleConditionalFields);
     toggleConditionalFields();
 
     form.addEventListener('submit', async (event) => {

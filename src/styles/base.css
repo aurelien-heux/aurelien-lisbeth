@@ -19,9 +19,11 @@ h1, h2, h3, h4 {
   font-weight: 400;
   line-height: 1.2;
 }
-h1 { font-size: 5rem; }
-h2 { font-size: 3.5rem; }
-h3 { font-size: 2rem; }
+/* Tailles fluides : la valeur preferred (vw) lisse les transitions entre
+   les bornes min/max sans avoir besoin d'un breakpoint intermédiaire. */
+h1 { font-size: clamp(2.8rem, 8vw, 5rem); }
+h2 { font-size: clamp(2rem, 5vw, 3.5rem); }
+h3 { font-size: clamp(1.4rem, 3vw, 2rem); }
 
 p { margin: 0 0 var(--space-sm); }
 
@@ -38,43 +40,41 @@ button {
   color: inherit;
 }
 
+/* Reset fieldset/legend : pas de bordure, pas de padding/margin par défaut. */
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  min-width: 0;
+}
+legend {
+  padding: 0;
+}
+
 /* Utilitaires */
 /* Pattern typo "label uppercase" centralisé.
    :is() pour adopter la spécificité (0,1,1) de `.nav__links a` →
    bat la règle globale `a { font-size: var(--text-body); }` ainsi
    que `button { font: inherit }`. */
 :is(
-  .eyebrow,
+  .subsection-title,
   .nav__links a,
   .hero__meta dt,
   .footer,
   .timeline-festive__place,
+  .timeline-festive__day-label,
   .btn-ghost,
   .btn-primary,
   .calendar-add__menu button,
   .hotel__tag,
+  .liste-link-card__source,
   .link-uppercase,
-  .info-note,
   .field label,
   .field legend
 ) {
   font-size: var(--text-label);
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: var(--tertiary);
-}
-
-.eyebrow::before {
-  content: '';
-  width: 30px;
-  height: 1px;
-  background: var(--tertiary);
 }
 
 .section-title {
@@ -84,6 +84,32 @@ button {
   margin-bottom: var(--space-lg);
 }
 
+/* Sous-titre de subdivision à l'intérieur d'une section — uppercase
+   sans-serif doré, précédé d'un tiret doré, centré. */
+.subsection-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  font-family: var(--font-sans);
+  color: var(--tertiary);
+  margin: var(--space-lg) 0 var(--space-md);
+}
+
+/* Tiret doré 1px réutilisé devant les labels uppercase. Trace en
+   gradient centré sur une hauteur 1em : évite l'anti-aliasing sur
+   2 lignes selon l'arrondi du align-items du parent. */
+:is(.subsection-title, .hero__meta dt, .timeline-festive__day-label)::before,
+.timeline-festive__day-label::after {
+  content: '';
+  flex-shrink: 0;
+  width: 32px;
+  height: 1em;
+  background:
+    linear-gradient(var(--tertiary), var(--tertiary))
+    center / 100% 1px no-repeat;
+}
+
 .container {
   width: 100%;
   margin: 0 auto;
@@ -91,7 +117,6 @@ button {
 }
 .container--narrow { max-width: var(--container-narrow); }
 .container--medium { max-width: var(--container-medium); }
-.container--wide   { max-width: var(--container-wide); }
 
 .section {
   position: relative;

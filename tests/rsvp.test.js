@@ -20,12 +20,12 @@ describe('validateRsvp', () => {
   const base = {
     name: 'Jean Dupont',
     email: 'jean@example.com',
+    phone: '',
     attendance: 'oui',
-    guests: 1,
-    guestNames: '',
+    attendanceNext: 'non',
+    participants: 'Jean Dupont, Marie Dupont',
     diet: '',
     message: '',
-    phone: '',
     website: '',
   };
 
@@ -35,8 +35,13 @@ describe('validateRsvp', () => {
     expect(result.errors).toEqual({});
   });
 
-  it('accepts a valid "non" RSVP without guests', () => {
-    const result = validateRsvp({ ...base, attendance: 'non', guests: undefined });
+  it('accepts a valid "non" RSVP without participants/attendanceNext', () => {
+    const result = validateRsvp({
+      ...base,
+      attendance: 'non',
+      attendanceNext: undefined,
+      participants: undefined,
+    });
     expect(result.valid).toBe(true);
   });
 
@@ -58,16 +63,22 @@ describe('validateRsvp', () => {
     expect(result.errors.attendance).toBeDefined();
   });
 
-  it('rejects guests below 1 when attendance is oui', () => {
-    const result = validateRsvp({ ...base, guests: 0 });
+  it('rejects missing attendanceNext when attendance is oui', () => {
+    const result = validateRsvp({ ...base, attendanceNext: '' });
     expect(result.valid).toBe(false);
-    expect(result.errors.guests).toBeDefined();
+    expect(result.errors.attendanceNext).toBeDefined();
   });
 
-  it('rejects guests above 6', () => {
-    const result = validateRsvp({ ...base, guests: 7 });
+  it('rejects missing participants when attendance is oui', () => {
+    const result = validateRsvp({ ...base, participants: '' });
     expect(result.valid).toBe(false);
-    expect(result.errors.guests).toBeDefined();
+    expect(result.errors.participants).toBeDefined();
+  });
+
+  it('rejects participants shorter than 2 chars', () => {
+    const result = validateRsvp({ ...base, participants: 'a' });
+    expect(result.valid).toBe(false);
+    expect(result.errors.participants).toBeDefined();
   });
 
   it('flags honeypot as invalid (silently)', () => {
@@ -76,61 +87,30 @@ describe('validateRsvp', () => {
     expect(result.errors.honeypot).toBeDefined();
   });
 
-  it('does not require guests when attendance is non', () => {
-    const result = validateRsvp({ ...base, attendance: 'non', guests: undefined });
-    expect(result.valid).toBe(true);
-    expect(result.errors.guests).toBeUndefined();
-  });
-
-  it('accepts childrenCount = 0 without childcare info', () => {
-    const result = validateRsvp({ ...base, childrenCount: 0 });
-    expect(result.valid).toBe(true);
-  });
-
-  it('accepts a valid RSVP with children and childcare answer', () => {
-    const result = validateRsvp({
-      ...base,
-      childrenCount: 2,
-      childrenAges: '4 ans, 7 ans',
-      childcare: 'oui',
-    });
-    expect(result.valid).toBe(true);
-    expect(result.errors).toEqual({});
-  });
-
-  it('rejects childrenCount above 6', () => {
-    const result = validateRsvp({ ...base, childrenCount: 7, childcare: 'oui' });
-    expect(result.valid).toBe(false);
-    expect(result.errors.childrenCount).toBeDefined();
-  });
-
-  it('rejects negative childrenCount', () => {
-    const result = validateRsvp({ ...base, childrenCount: -1 });
-    expect(result.valid).toBe(false);
-    expect(result.errors.childrenCount).toBeDefined();
-  });
-
-  it('requires childcare answer when childrenCount > 0', () => {
-    const result = validateRsvp({ ...base, childrenCount: 1, childcare: '' });
-    expect(result.valid).toBe(false);
-    expect(result.errors.childcare).toBeDefined();
-  });
-
-  it('does not require childcare when attendance is non', () => {
+  it('does not require attendanceNext when attendance is non', () => {
     const result = validateRsvp({
       ...base,
       attendance: 'non',
-      guests: undefined,
-      childrenCount: 3,
+      attendanceNext: undefined,
+      participants: undefined,
     });
     expect(result.valid).toBe(true);
-    expect(result.errors.childcare).toBeUndefined();
+    expect(result.errors.attendanceNext).toBeUndefined();
   });
 
-  it('treats empty/missing childrenCount as 0', () => {
-    const result1 = validateRsvp({ ...base, childrenCount: '' });
-    const result2 = validateRsvp({ ...base, childrenCount: undefined });
-    expect(result1.valid).toBe(true);
-    expect(result2.valid).toBe(true);
+  it('does not require participants when attendance is non', () => {
+    const result = validateRsvp({
+      ...base,
+      attendance: 'non',
+      attendanceNext: undefined,
+      participants: '',
+    });
+    expect(result.valid).toBe(true);
+    expect(result.errors.participants).toBeUndefined();
+  });
+
+  it('accepts attendanceNext "oui"', () => {
+    const result = validateRsvp({ ...base, attendanceNext: 'oui' });
+    expect(result.valid).toBe(true);
   });
 });

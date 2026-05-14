@@ -38,16 +38,16 @@
 }
 .nav__monogram-mark {
   font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: 1rem;
+  font-weight: 600;
+  font-size: 1.15rem;
   color: var(--tertiary);
   line-height: 1;
   letter-spacing: 0.02em;
 }
 .nav__monogram-amp {
   margin: 0 0.18em;
-  font-weight: 300;
-  font-size: 1rem;
+  font-weight: 500;
+  font-size: 1.15rem;
   opacity: 0.85;
 }
 .nav__monogram:hover { opacity: 0.75; }
@@ -84,25 +84,51 @@
 .nav__links::before { margin-right: 1.4rem; }
 .nav__links::after  { margin-left: 1.4rem; }
 
-/* Séparateur losange doré entre items, desktop uniquement */
 .nav__links li + li::before {
   content: '';
   display: inline-block;
   width: 6px;
   height: 6px;
   margin: 0 1.4rem;
-  background: var(--svg-diamond) center / contain no-repeat;
+  background: var(--svg-star-mini) center / contain no-repeat;
   flex-shrink: 0;
+}
+
+/* Desktop intermédiaire (769-1100px) : la nav avec flourishes + 6 items
+   déborderait. On masque les flourishes des extrémités. */
+@media (min-width: 769px) and (max-width: 1100px) {
+  .nav__links::before,
+  .nav__links::after { display: none; }
+  .nav__links li + li::before { margin: 0 0.8rem; }
 }
 
 .nav__links a {
   /* font-size / text-transform fournis par le :where() label de base.css */
+  position: relative;
   font-weight: 500;
   letter-spacing: var(--track-nav);
   color: var(--crayon);
+  text-decoration: none;
   transition: color var(--transition-fast);
 }
-.nav__links a:hover { color: var(--primary); }
+/* Soulignement doré qui s'étend depuis le centre au hover. */
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 0;
+  height: 1px;
+  background: var(--tertiary);
+  transition: width var(--transition-fast), left var(--transition-fast);
+}
+.nav__links a:hover,
+.nav__links a:focus-visible { color: var(--primary); }
+.nav__links a:hover::after,
+.nav__links a:focus-visible::after {
+  width: 100%;
+  left: 0;
+}
 
 /* Burger (caché en desktop) */
 .nav__burger {
@@ -162,8 +188,8 @@
   .nav__monogram::before { margin-right: 0.8rem; }
   .nav__monogram::after  { margin-left: 0.8rem; }
 
-  .nav__monogram-mark { font-size: 1rem; line-height: 1; }
-  .nav__monogram-amp  { font-size: 1rem; }
+  .nav__monogram-mark { font-size: 1.1rem; line-height: 1; }
+  .nav__monogram-amp  { font-size: 1.1rem; }
 
   /* Dropdown : sous la barre, pleine largeur d'écran. */
   .nav__links {
@@ -177,11 +203,10 @@
     align-items: stretch;
     background: var(--creme);
     border-bottom: var(--border-fine);
-    padding: 1rem 0;            /* léger pour aérer en haut et en bas */
+    padding: 1rem 0;
     margin: 0;
     list-style: none;
   }
-  /* Plus de flourish début/fin sur mobile (dropdown vertical) */
   .nav__links::before,
   .nav__links::after { display: none; }
 
@@ -191,14 +216,14 @@
     text-align: center;
   }
 
-  /* Séparateur entre items mobile : la même flourish dorée,
-     centrée horizontalement entre chaque paire d'items. */
+  /* Séparateur flourish entre items, plus petit qu'en desktop pour
+     un rendu net à cette échelle. */
   .nav__links li + li::before {
     content: '';
     display: block;
-    width: 90px;
-    height: 14px;
-    margin: 0 auto;
+    width: 60px;
+    height: 10px;
+    margin: 0.4rem auto;
     background: var(--svg-flourish) center / contain no-repeat;
   }
 
@@ -207,13 +232,38 @@
   .nav.is-open .nav__burger span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
   .nav.is-open .nav__burger span:nth-child(2) { opacity: 0; }
   .nav.is-open .nav__burger span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
-}
 
-/* ===== Eyebrow utility ===== */
-.eyebrow--centered {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 0.6rem;
+  /* Animation d'apparition en cascade des items quand le menu s'ouvre.
+     Sur mobile, :hover ne se déclenche pas — cette animation donne un
+     retour visuel franc à l'ouverture du dropdown. */
+  .nav.is-open .nav__links li {
+    opacity: 0;
+    transform: translateY(-6px);
+    animation: nav-item-in 0.3s ease forwards;
+  }
+  .nav.is-open .nav__links li:nth-child(1) { animation-delay: 0.05s; }
+  .nav.is-open .nav__links li:nth-child(2) { animation-delay: 0.10s; }
+  .nav.is-open .nav__links li:nth-child(3) { animation-delay: 0.15s; }
+  .nav.is-open .nav__links li:nth-child(4) { animation-delay: 0.20s; }
+  .nav.is-open .nav__links li:nth-child(5) { animation-delay: 0.25s; }
+  .nav.is-open .nav__links li:nth-child(6) { animation-delay: 0.30s; }
+
+  @keyframes nav-item-in {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Retour visuel au tap : couleur bordeaux + soulignement doré
+     instantané, équivalent du hover desktop. */
+  .nav__links a:active {
+    color: var(--primary);
+  }
+  .nav__links a:active::after {
+    width: 100%;
+    left: 0;
+  }
 }
 
 /* ===== Hero ===== */
@@ -232,20 +282,9 @@
   overflow: hidden;
 }
 
-/* Desktop : on cale le hero sur le ratio de l'image (1692×929 → 1.822)
-   pour que `background-size: contain` remplisse 100 % de la largeur
-   sur du full HD et au-dessus. La min-height assure qu'on ne descend
-   jamais sous la hauteur de viewport. */
-@media (min-width: 769px) {
-  .hero {
-    aspect-ratio: 1692 / 929;
-  }
-}
-
-/* Fond : sapin enneigé en arrière-plan, voilé d'un overlay crème
-   pour préserver la lisibilité du texte et du compte à rebours.
-   `cover` (au lieu de `contain`) → l'image remplit toujours toute
-   la hauteur du hero, quel que soit le ratio du viewport. */
+/* Fond : sapin enneigé voilé d'un overlay crème pour préserver la
+   lisibilité du texte. `cover` plutôt que `contain` pour remplir
+   toute la hauteur du hero quel que soit le ratio du viewport. */
 .hero::before {
   content: '';
   position: absolute;
@@ -269,9 +308,7 @@
 
 .hero__divider {
   position: relative;
-  align-self: center;
-  height: calc(min(100vw, 120rem) / 1.822);   /* = hauteur visible de l'image (ratio 1692/929) */
-  max-height: 100%;                            /* ne dépasse pas la cellule du grid */
+  align-self: stretch;       /* le filet doré occupe toute la hauteur de la cellule */
   background: none;
   border-left: 1.5px dotted color-mix(in srgb, var(--tertiary) 55%, transparent);
 }
@@ -290,7 +327,7 @@
   justify-content: center;
   background: var(--creme);
   color: var(--secondary);
-  box-shadow: 0 0 0 6px color-mix(in srgb, var(--creme) 95%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--tertiary) 12%, transparent);
 }
 
 .hero__divider-mark svg,
@@ -303,7 +340,7 @@
 
 .hero__names {
   font-family: var(--font-serif);
-  font-size: 5rem;
+  font-size: clamp(2.8rem, 8vw, 5rem);
   line-height: 1;
   letter-spacing: -1px;
   color: var(--crayon);
@@ -326,14 +363,6 @@
   color: var(--tertiary);
   margin-bottom: 0.6rem;
 }
-/* Tiret doré avant le label, à la manière d'un .eyebrow */
-.hero__meta dt::before {
-  content: '';
-  display: inline-block;
-  width: 32px;
-  height: 1px;
-  background: var(--tertiary);
-}
 .hero__meta dd {
   margin: 0;
   font-size: var(--text-body);
@@ -346,7 +375,7 @@
   font-family: var(--font-serif);
   font-style: normal;
   font-weight: 500;
-  font-size: 1.85rem;
+  font-size: clamp(1.2rem, 3.5vw, 1.85rem);
   line-height: 1.1;
   letter-spacing: 0.4px;
   color: var(--primary);
@@ -438,14 +467,13 @@
   align-items: center;
 }
 
-/* Séparateur losange doré entre chaque item */
 .footer__list li + li::before {
   content: '';
   display: inline-block;
   width: 6px;
   height: 6px;
   margin: 0 1.4rem;
-  background: var(--svg-diamond) center / contain no-repeat;
+  background: var(--svg-star-mini) center / contain no-repeat;
   flex-shrink: 0;
 }
 
@@ -489,10 +517,12 @@
   transform: translateX(-50%);
 }
 
-.timeline-festive__interlude {
+/* Marqueur de jour centré sur la ligne verticale, fond crème pour
+   masquer le filet derrière. */
+.timeline-festive__day {
   list-style: none;
   margin: 0;
-  padding: 0.6rem 0;
+  padding: 1.6rem 0 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -500,19 +530,44 @@
   z-index: 1;
 }
 
-.timeline-festive__interlude-pill {
+.timeline-festive__day-label {
   display: inline-flex;
   align-items: center;
+  gap: 0.7rem;
   background: var(--creme);
-  padding: 0.4rem 0.9rem;
+  padding: 0.45rem 1.1rem;
   color: var(--tertiary);
-  opacity: var(--opacity-mute);
 }
 
-.timeline-festive__interlude-dots {
-  width: 36px;
-  height: 4px;
-  flex-shrink: 0;
+.timeline-festive__day-label::before,
+.timeline-festive__day-label::after {
+  width: 28px;
+}
+
+/* État "brouillon" : les éléments de la timeline non encore confirmés
+   sont floutés et atténués en permanence. */
+.timeline-festive .is-draft {
+  filter: blur(4px);
+  opacity: 0.5;
+}
+
+/* Petite note italique entre les items confirmés et brouillon. Reste nette. */
+.timeline-festive__note {
+  list-style: none;
+  margin: 0;
+  padding: 1.2rem 0 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-festive__note h3 {
+  background: var(--creme);
+  padding: 0.4rem 1rem;
+  color: var(--secondary);
+  margin: 0;
 }
 
 .timeline-festive__row {
@@ -553,30 +608,33 @@
   justify-content: center;
   color: var(--tertiary);
   z-index: 1;
-  box-shadow: 0 0 0 6px color-mix(in srgb, var(--creme) 95%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--tertiary) 12%, transparent);
   transition: transform .35s ease, box-shadow .35s ease;
 }
 
 .timeline-festive__row:hover .timeline-festive__marker {
   transform: scale(1.06);
   box-shadow:
-    0 0 0 6px color-mix(in srgb, var(--creme) 95%, transparent),
-    0 4px 14px color-mix(in srgb, var(--tertiary) 18%, transparent);
+    0 0 0 4px color-mix(in srgb, var(--tertiary) 20%, transparent),
+    0 4px 14px color-mix(in srgb, var(--tertiary) 15%, transparent);
 }
 
 .timeline-festive__time {
+  display: inline-block;
+  margin: 0 0.6rem 0 0;
   font-style: italic;
   font-size: var(--text-body);
   color: var(--primary);
-  margin: 0 0 0.4rem;
+  vertical-align: baseline;
 }
 
 .timeline-festive__title {
+  display: inline-block;
   font-family: var(--font-serif);
-  font-size: 2rem;
   color: var(--primary);
   margin: 0 0 0.6rem;
   letter-spacing: 0.2px;
+  vertical-align: baseline;
 }
 
 .timeline-festive__desc {
@@ -586,6 +644,11 @@
   margin: 0 0 0.6rem;
   max-width: 36ch;
   margin-left: auto;
+}
+
+/* Si la balise descriptif est laissée vide, on évite l'espace résiduel. */
+.timeline-festive__desc:empty {
+  margin: 0;
 }
 
 .timeline-festive__row--reverse .timeline-festive__desc {
@@ -658,7 +721,7 @@
   background: var(--creme);
   border: var(--border-fine);
   border-radius: var(--radius-sm);
-  box-shadow: 0 6px 20px color-mix(in srgb, var(--crayon) 8%, transparent);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--tertiary) 25%, transparent);
   z-index: 5;
   overflow: hidden;
 }
@@ -694,9 +757,14 @@
     transform: none;
   }
 
-  .timeline-festive__interlude {
+  .timeline-festive__day {
     justify-content: flex-start;
-    padding: 0.4rem 0;
+    padding: 1.2rem 0 1rem;
+  }
+
+  .timeline-festive__note {
+    justify-content: flex-start;
+    padding: 1rem 0 0.6rem;
   }
 
   .timeline-festive__row,
@@ -743,6 +811,17 @@
   opacity: var(--opacity-mute);
 }
 
+/* Lien inline soulignement doux (sapin), partagé entre .lead__link
+   et .info-block__where a. */
+:is(.lead__link, .info-block__where a) {
+  border-bottom: 1px solid color-mix(in srgb, var(--secondary) 40%, transparent);
+  transition: border-color var(--transition-fast);
+}
+:is(.lead__link, .info-block__where a):hover {
+  border-bottom-color: var(--secondary);
+}
+.lead__link { color: var(--secondary); }
+
 .hotels {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -759,11 +838,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: border-color var(--transition-fast);
-}
-
-.hotel:hover {
-  border-color: var(--primary);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .hotel__media {
@@ -810,16 +885,8 @@
 
 .hotel h3 {
   font-family: var(--font-serif);
-  font-size: 2rem;
   margin-bottom: 0.4rem;
   color: var(--primary);
-}
-
-.hotel__rating {
-  font-size: var(--text-body);
-  letter-spacing: 0.1em;
-  color: var(--tertiary);
-  margin-bottom: 0.8rem;
 }
 
 .hotel p {
@@ -855,9 +922,69 @@
   opacity: var(--opacity-mute);
 }
 
+/* ===== Pour aller plus loin (points d'intérêt) ===== */
+.explore {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.5rem;
+}
+
+.explore article {
+  display: flex;
+  flex-direction: column;
+}
+
+.explore__media {
+  aspect-ratio: 4 / 3;
+  background: var(--ligne);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 0.8rem;
+}
+
+.explore__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.explore article h3 {
+  font-family: var(--font-serif);
+  color: var(--primary);
+  margin-bottom: 0.3rem;
+}
+
+.explore__meta {
+  font-size: var(--text-body);
+  color: var(--secondary);
+  font-style: italic;
+  margin: 0 0 0.6rem;
+}
+
+.explore article > p:last-child {
+  font-size: var(--text-body);
+  color: var(--crayon);
+  opacity: var(--opacity-mute);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Espace supplémentaire sous la section Tourisme avant la guirlande. */
+.section--tourisme {
+  padding-bottom: calc(var(--section-py-desktop) + 1rem);
+}
+
+@media (max-width: 768px) {
+  .section--tourisme {
+    padding-bottom: calc(var(--section-py-mobile) + 0.5rem);
+  }
+}
+
 /* ===== Infos pratiques ===== */
 .map {
   --map-header-clip: 67px;
+  --map-footer-clip: 18px;
   position: relative;
   height: 460px;
   margin: 0 0 var(--space-lg);
@@ -870,7 +997,7 @@
   display: block;
   border: 0;
   width: 100%;
-  height: calc(100% + var(--map-header-clip));
+  height: calc(100% + var(--map-header-clip) + var(--map-footer-clip));
   margin-top: calc(-1 * var(--map-header-clip));
 }
 
@@ -878,39 +1005,57 @@
   .map { height: 360px; }
 }
 
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2.5rem;
-}
-
-.info-grid article {
+/* Bloc d'informations détaillées dans .section--infos (Comment venir, etc.).
+   Deux parties (cérémonie, festivités) chacune avec un titre serif et son
+   contenu (liste ou paragraphe). */
+.info-block {
+  max-width: 56ch;
+  margin: 0 auto var(--space-md);
   text-align: left;
 }
 
-.info-grid h3 {
+.info-block__heading {
   font-family: var(--font-serif);
-  font-size: 2rem;
-  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
   color: var(--primary);
+  margin: 0 0 0.1rem;
 }
 
-.info-grid p, .info-grid li {
+.info-block__where {
   font-size: var(--text-body);
+  color: var(--secondary);
+  font-style: italic;
+  margin: 0 0 0.15rem;
+}
+
+.info-block__address {
+  font-size: var(--text-body);
+  color: var(--crayon);
+  opacity: var(--opacity-mute);
+  margin: 0 0 0.8rem;
+}
+
+.info-block__where a { color: inherit; }
+
+.info-block__body {
+  font-size: var(--text-body);
+  color: var(--crayon);
   opacity: var(--opacity-soft);
-  margin-bottom: 0.6rem;
+  line-height: 1.55;
+  margin: 0;
 }
 
-.info-grid ul {
-  padding: 0;
-  list-style: none;
+.info-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: var(--text-body);
+  color: var(--crayon);
+  opacity: var(--opacity-soft);
 }
 
-/* Surcharge .info-grid p — sélecteur plus spécifique évite le !important. */
-.info-grid p.info-note {
-  font-size: var(--text-label);
-  color: var(--tertiary);
-  opacity: 1;
+.info-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.55;
 }
 
 /* ===== RSVP ===== */
@@ -950,6 +1095,16 @@
   transition: border-color var(--transition-fast), background var(--transition-fast);
 }
 
+.field textarea {
+  resize: none;
+}
+
+/* Champ renseigné : bordure dorée subtile pour confirmer la saisie. */
+.field input:not(:placeholder-shown),
+.field textarea:not(:placeholder-shown) {
+  border-color: color-mix(in srgb, var(--tertiary) 55%, transparent);
+}
+
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
@@ -958,10 +1113,35 @@
   background: white;
 }
 
+/* Override de l'autofill Chrome/Safari (fond bleu clair par défaut). */
+.field input:-webkit-autofill,
+.field input:-webkit-autofill:hover,
+.field input:-webkit-autofill:focus,
+.field textarea:-webkit-autofill,
+.field textarea:-webkit-autofill:hover,
+.field textarea:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: var(--crayon) !important;
+  caret-color: var(--crayon);
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Indicateur "obligatoire" : astérisque doré après le label / legend des
+   champs marqués `required` (texte / select / textarea / toggle-group). */
+.field:has(input[required], textarea[required], select[required]) > label::after,
+.toggle-group:has(input[required]) > legend::after {
+  content: ' *';
+  color: var(--tertiary);
+  font-weight: 400;
+}
+
+/* Champ en erreur (non renseigné ou invalide) : bordure bordeaux marquée
+   et fond rosé pour attirer l'œil. */
 .field input.is-invalid,
 .field select.is-invalid,
 .field textarea.is-invalid {
   border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 6%, white);
 }
 
 .field input::placeholder,
@@ -985,9 +1165,8 @@
 }
 
 /* Toggle (segmented control) — Présence + Garde */
-.toggle-group {
-  border: 0;
-  margin: 0;
+.toggle-group legend {
+  margin-bottom: 0.5rem;
 }
 
 .toggle-group__buttons {
@@ -1013,8 +1192,9 @@
   background: transparent;
   color: var(--crayon);
   font: inherit;
-  font-weight: 300;
-  line-height: 1.6;
+  font-size: var(--text-label);
+  font-weight: 400;
+  line-height: 1.5;
   letter-spacing: 0;
   text-transform: none;
   transition: background var(--transition-fast), color var(--transition-fast);
@@ -1022,6 +1202,13 @@
 
 .toggle-option + .toggle-option {
   border-left: var(--border-fine);
+}
+
+/* Le span enveloppant le label (« Oui, avec plaisir » / « Non, … ») hérite
+   par défaut de la règle globale `a, span { font-size: var(--text-body) }`.
+   On l'aligne sur la taille du toggle-option parent. */
+.toggle-option > span {
+  font-size: inherit;
 }
 
 .toggle-option input[type="radio"] {
@@ -1035,13 +1222,18 @@
   border: 0;
 }
 
-.toggle-option:hover {
-  background: rgba(0, 0, 0, 0.04);
+/* Réponse positive : fond vert sapin très clair, texte sapin. */
+.toggle-option:hover,
+.toggle-option:has(input[type="radio"]:checked) {
+  background: color-mix(in srgb, var(--secondary) 10%, white);
+  color: var(--secondary);
 }
 
-.toggle-option:has(input[type="radio"]:checked) {
-  background: var(--tertiary);
-  color: var(--secondary);
+/* Refus : fond doré clair (même principe que le positif en vert), texte doré. */
+.toggle-option:has(input[value="non"]):hover,
+.toggle-option:has(input[value="non"]:checked) {
+  background: color-mix(in srgb, var(--tertiary) 30%, white);
+  color: var(--tertiary);
 }
 
 .toggle-option:has(input[type="radio"]:focus-visible) {
@@ -1051,13 +1243,14 @@
 
 .toggle-group.is-invalid .toggle-group__buttons {
   border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 6%, white);
 }
 
 .btn-primary {
   margin-top: 1rem;
   padding: 1.1rem 1.6rem;
-  color: var(--creme);
-  background: var(--primary);
+  color: var(--primary);
+  background: var(--creme);
   border: 1px solid var(--primary);
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -1065,8 +1258,8 @@
 }
 
 .btn-primary:hover {
-  background: var(--secondary);
-  border-color: var(--secondary);
+  background: var(--primary);
+  color: var(--creme);
 }
 
 .btn-primary[disabled] {
@@ -1085,8 +1278,93 @@
 .rsvp-status.is-error   { color: var(--primary); }
 
 /* ===== Liste / FAQ ===== */
-.section--liste { padding-bottom: var(--section-py-desktop); }
 .section--liste__inner { text-align: center; }
+
+/* Carte preview vers la cagnotte (style OG-card). Image carrée à gauche,
+   bloc texte à droite. Lien cliquable sur toute la surface. */
+.liste-link-card {
+  display: flex;
+  align-items: stretch;
+  max-width: 480px;
+  margin: 0 auto var(--space-md);
+  border: var(--border-fine);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: white;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Mise en valeur dorée au survol — partagée avec .hotel. */
+:is(.hotel, .liste-link-card):hover {
+  border-color: var(--tertiary);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--tertiary) 25%, transparent);
+}
+
+.liste-link-card__media {
+  flex-shrink: 0;
+  width: 140px;
+  background: var(--ligne);
+}
+
+.liste-link-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.liste-link-card__body {
+  padding: 1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.liste-link-card__source {
+  color: var(--tertiary);
+  margin: 0;
+}
+
+.liste-link-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--primary);
+  margin: 0;
+  line-height: 1.1;
+}
+
+.liste-link-card__desc {
+  font-size: var(--text-body);
+  color: var(--crayon);
+  opacity: var(--opacity-mute);
+  margin: 0;
+}
+
+/* Note sur l'urne physique : italique discret. */
+.liste-physical {
+  text-align: center;
+  max-width: 56ch;
+  margin: 0 auto;
+  font-style: italic;
+  font-size: var(--text-body);
+  color: var(--secondary);
+}
+
+@media (max-width: 640px) {
+  .liste-link-card {
+    flex-direction: column;
+    max-width: 340px;
+  }
+  .liste-link-card__media {
+    width: 100%;
+    aspect-ratio: 1;
+  }
+}
 
 .faq {
   display: grid;
@@ -1134,11 +1412,20 @@
   color: var(--primary);
 }
 
-.faq__item p {
+.faq__item p,
+.faq__item ul {
   margin: 0.8rem 0 0;
   font-size: var(--text-body);
   color: var(--crayon);
   opacity: var(--opacity-soft);
+}
+
+.faq__item ul {
+  padding-left: 1.2rem;
+}
+
+.faq__item li {
+  margin-bottom: 0.4rem;
 }
 
 @media (max-width: 768px) {
