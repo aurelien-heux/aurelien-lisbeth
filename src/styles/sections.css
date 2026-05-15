@@ -347,6 +347,13 @@
 
 .hero__amp { font-size: inherit; color: var(--primary); font-weight: 300; }
 
+/* "se marient !" — tagline serif bordeaux sous le bloc des prénoms. */
+.hero__tagline {
+  font-family: var(--font-serif);
+  color: var(--primary);
+  margin: 0.4rem 0 0;
+}
+
 .hero__meta {
   display: grid;
   gap: 2.6rem;
