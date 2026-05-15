@@ -483,15 +483,32 @@
   flex-shrink: 0;
 }
 
-/* Version courte/monogramme du nom mariés, activée en mobile.
-   Cachée par défaut en desktop. */
-.footer__name-short { display: none; }
+/* Le footer affiche uniquement le monogramme A & L. La version texte
+   complète "Aurélien & Lisbeth" reste dans le DOM via .sr-only pour les
+   lecteurs d'écran. La date et la ville sont aussi cachées visuellement. */
+.footer__list li:nth-child(n+2) { display: none; }
 
-/* Mobile : on masque la date et la ville et on remplace les prénoms
-   par le monogramme A & L. Flourishes rétrécies pour tenir sur ≈320px. */
+.footer__name-short {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  line-height: 1;
+}
+.footer__name-amp {
+  margin: 0 0.18em;
+  font-weight: 500;
+  font-size: inherit;
+  opacity: 0.85;
+}
+
+/* Sur petits écrans, on rétrécit les flourishes d'extrémité pour
+   tenir confortablement sur ≈320px. */
 @media (max-width: 640px) {
   .footer__list { flex-wrap: nowrap; }
-  .footer__list li:nth-child(n+2) { display: none; }
   .footer__list::before,
   .footer__list::after {
     width: 50px;
@@ -499,24 +516,6 @@
   }
   .footer__list::before { margin-right: 0.7rem; }
   .footer__list::after  { margin-left: 0.7rem; }
-
-  .footer__name-long { display: none; }
-  .footer__name-short {
-    display: inline-flex;
-    align-items: baseline;
-    font-family: var(--font-serif);
-    font-size: 1.25rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    text-transform: none;
-    line-height: 1;
-  }
-  .footer__name-amp {
-    margin: 0 0.18em;
-    font-weight: 500;
-    font-size: inherit;
-    opacity: 0.85;
-  }
 }
 
 /* ===== Programme / Timeline festive ===== */
