@@ -122,7 +122,7 @@ if (typeof document !== 'undefined') {
 
       if (!RSVP_URL || !RSVP_TOKEN) {
         console.warn('RSVP : VITE_RSVP_URL ou VITE_RSVP_TOKEN manquant.');
-        setStatus('Configuration manquante côté front. Merci de prévenir les mariés.', 'error');
+        setStatus('Petit souci de notre côté, le formulaire ne peut pas envoyer votre réponse. Écrivez-nous directement, on s\'en occupe !', 'error');
         return;
       }
 
