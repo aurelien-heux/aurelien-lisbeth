@@ -4,7 +4,7 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--creme);
+  background: linear-gradient(to right, white 0%, var(--creme) 50%, white 100%);
   color: var(--crayon);
   font-family: var(--font-sans);
   font-weight: 400;

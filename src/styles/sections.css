@@ -580,10 +580,13 @@
 }
 
 /* État "brouillon" : les éléments de la timeline non encore confirmés
-   sont floutés et atténués en permanence. */
+   sont floutés et atténués en permanence, et leur texte n'est ni
+   sélectionnable ni copiable (au cas où le flou serait contourné). */
 .timeline-festive .is-draft {
   filter: blur(4px);
   opacity: 0.5;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 /* Petite note italique entre les items confirmés et brouillon. Reste nette. */
