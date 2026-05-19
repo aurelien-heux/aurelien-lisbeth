@@ -535,9 +535,12 @@
   /* isolation: isolate → crée un contexte d'empilement local, indispensable
      pour que les z-index négatifs des filets (::before solide et ::after
      pointillé du note) restent confinés ici et ne traversent pas la page.
-     overflow: hidden → clippe la hauteur "infinie" du filet en pointillés. */
+     clip-path: inset(0 -100vw) → clippe verticalement (cache la hauteur
+     "infinie" 200vh du filet pointillé) tout en laissant déborder à
+     gauche/droite — sinon l'ombre dorée des marqueurs serait coupée
+     en mobile où le cercle est collé au bord gauche. */
   isolation: isolate;
-  overflow: hidden;
+  clip-path: inset(0 -100vw);
 }
 
 /* Filet solide z-index:-1 → toujours derrière le texte, les marqueurs
