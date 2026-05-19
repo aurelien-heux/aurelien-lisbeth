@@ -590,11 +590,29 @@
 
 /* État "brouillon" : les éléments de la timeline non encore confirmés
    sont atténués en permanence, et leur texte n'est ni sélectionnable
-   ni copiable. */
+   ni copiable. On NE met PAS opacity:0.5 sur le conteneur — sinon le
+   fond crème des marqueurs et day-labels devient semi-transparent et
+   laisse passer le filet en pointillés. On atténue donc uniquement le
+   contenu (texte + icône SVG) en préservant les fonds opaques. */
 .timeline-festive .is-draft {
-  opacity: 0.5;
   user-select: none;
   -webkit-user-select: none;
+}
+
+.timeline-festive__row.is-draft .timeline-festive__text,
+.timeline-festive__row.is-draft .timeline-festive__marker svg {
+  opacity: 0.5;
+}
+
+/* Day-label brouillon : fond crème conservé pleinement opaque ; on
+   ne dégrade que la couleur du texte (via color-mix) et l'opacité des
+   flourishes en ::before/::after. */
+.timeline-festive__day.is-draft .timeline-festive__day-label {
+  color: color-mix(in srgb, var(--tertiary) 50%, var(--creme));
+}
+.timeline-festive__day.is-draft .timeline-festive__day-label::before,
+.timeline-festive__day.is-draft .timeline-festive__day-label::after {
+  opacity: 0.5;
 }
 
 /* Petite note italique entre les items confirmés et brouillon. Reste nette.
