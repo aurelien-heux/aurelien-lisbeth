@@ -532,6 +532,9 @@
   list-style: none;
   margin: 0 0 var(--space-lg);
   padding: 0;
+  /* Le filet en pointillés sous "Stay tuned !" est dessiné par
+     l'::after de la note avec une hauteur "large" — on clippe ici. */
+  overflow: hidden;
 }
 
 .timeline-festive::before {
@@ -580,10 +583,9 @@
 }
 
 /* État "brouillon" : les éléments de la timeline non encore confirmés
-   sont floutés et atténués en permanence, et leur texte n'est ni
-   sélectionnable ni copiable (au cas où le flou serait contourné). */
+   sont atténués en permanence, et leur texte n'est ni sélectionnable
+   ni copiable. */
 .timeline-festive .is-draft {
-  filter: blur(4px);
   opacity: 0.5;
   user-select: none;
   -webkit-user-select: none;
@@ -606,6 +608,31 @@
   padding: 0.4rem 1rem;
   color: var(--secondary);
   margin: 0;
+}
+
+/* À partir de la note "Stay tuned !", le filet vertical bascule en
+   pointillés dorés pour souligner que la suite est encore à confirmer.
+   Une bande crème de fond masque le filet solide derrière. La grande
+   hauteur est clippée par overflow:hidden sur .timeline-festive. */
+.timeline-festive__note::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 200vh;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--tertiary) 55%, transparent) 0,
+      color-mix(in srgb, var(--tertiary) 55%, transparent) 2px,
+      transparent 2px,
+      transparent 8px
+    ),
+    var(--creme);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .timeline-festive__row {
@@ -803,6 +830,12 @@
   .timeline-festive__note {
     justify-content: flex-start;
     padding: 1rem 0 0.6rem;
+  }
+
+  /* Aligne le filet en pointillés sur la ligne verticale mobile. */
+  .timeline-festive__note::after {
+    left: 28px;
+    transform: none;
   }
 
   .timeline-festive__row,
