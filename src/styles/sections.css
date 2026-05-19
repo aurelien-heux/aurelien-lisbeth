@@ -532,11 +532,16 @@
   list-style: none;
   margin: 0 0 var(--space-lg);
   padding: 0;
-  /* Le filet en pointillés sous "Stay tuned !" est dessiné par
-     l'::after de la note avec une hauteur "large" — on clippe ici. */
+  /* isolation: isolate → crée un contexte d'empilement local, indispensable
+     pour que les z-index négatifs des filets (::before solide et ::after
+     pointillé du note) restent confinés ici et ne traversent pas la page.
+     overflow: hidden → clippe la hauteur "infinie" du filet en pointillés. */
+  isolation: isolate;
   overflow: hidden;
 }
 
+/* Filet solide z-index:-1 → toujours derrière le texte, les marqueurs
+   et le h3 "Stay tuned !" (qui le masque naturellement par son fond crème). */
 .timeline-festive::before {
   content: '';
   position: absolute;
@@ -553,6 +558,7 @@
     transparent
   );
   transform: translateX(-50%);
+  z-index: -1;
 }
 
 /* Marqueur de jour centré sur la ligne verticale, fond crème pour
@@ -591,7 +597,10 @@
   -webkit-user-select: none;
 }
 
-/* Petite note italique entre les items confirmés et brouillon. Reste nette. */
+/* Petite note italique entre les items confirmés et brouillon. Reste nette.
+   On garde uniquement position:relative (référent du ::after pointillé)
+   sans z-index — un z-index numérique créerait un contexte d'empilement
+   qui ferait passer le ::after au-dessus des rangées suivantes. */
 .timeline-festive__note {
   list-style: none;
   margin: 0;
@@ -600,7 +609,6 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  z-index: 2;
 }
 
 .timeline-festive__note h3 {
@@ -613,7 +621,9 @@
 /* À partir de la note "Stay tuned !", le filet vertical bascule en
    pointillés dorés pour souligner que la suite est encore à confirmer.
    Une bande crème de fond masque le filet solide derrière. La grande
-   hauteur est clippée par overflow:hidden sur .timeline-festive. */
+   hauteur est clippée par overflow:hidden sur .timeline-festive.
+   z-index: -1 → le pointillé reste derrière le texte, les marqueurs et
+   les labels de jour, comme le filet solide. */
 .timeline-festive__note::after {
   content: '';
   position: absolute;
@@ -632,7 +642,7 @@
     ),
     var(--creme);
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 
 .timeline-festive__row {
