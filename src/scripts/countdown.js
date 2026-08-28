@@ -3,7 +3,7 @@ const unitEl = document.querySelector('[data-countdown-unit]');
 const clockEl = document.querySelector('[data-countdown-clock]');
 
 if (daysEl) {
-  const target = new Date('2026-12-05T14:00:00+01:00');
+  const target = new Date('2026-12-05T14:30:00+01:00');
   const pad = (n) => n.toString().padStart(2, '0');
 
   const tick = () => {

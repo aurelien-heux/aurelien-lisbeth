@@ -78,7 +78,7 @@ export function buildGoogleCalendarUrl({ title, start, end, location, descriptio
 if (typeof document !== 'undefined') {
   const WEDDING_EVENT = {
     title: 'Mariage Aurélien & Lisbeth',
-    start: new Date('2026-12-05T14:00:00+01:00'), // 14h Paris time
+    start: new Date('2026-12-05T14:30:00+01:00'), // 14h30 Paris time
     end:   new Date('2026-12-06T02:00:00+01:00'),
     location: 'Boulogne-sur-Mer, France',
     description: 'Cérémonie religieuse à la Basilique Notre-Dame de Boulogne, puis festivités à la Maloterie',
