@@ -81,7 +81,7 @@ if (typeof document !== 'undefined') {
     start: new Date('2026-12-05T14:30:00+01:00'), // 14h30 Paris time
     end:   new Date('2026-12-06T02:00:00+01:00'),
     location: 'Boulogne-sur-Mer, France',
-    description: 'Cérémonie religieuse à la Basilique Notre-Dame de Boulogne, puis festivités à la Maloterie',
+    description: 'Cérémonie religieuse à 14h30 à la Basilique Notre-Dame de Boulogne, vin d\'honneur à 17h puis dîner de Noël à 19h30 à la Maloterie',
     uid: 'wedding-aurelien-lisbeth-20261205@aurelien-lisbeth',
   };
 
